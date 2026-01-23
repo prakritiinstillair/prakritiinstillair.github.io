@@ -1,10 +1,10 @@
 /* ================= RESET ================= */
-body,
-html {
+html,
+body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
-    "Hiragino Sans", "Noto Sans JP", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont,
+    "Helvetica Neue", "Hiragino Sans", "Noto Sans JP", sans-serif;
   color: #fff;
   background: #000;
   overflow-x: hidden;
@@ -89,7 +89,6 @@ header {
   position: absolute;
   bottom: 15%;
   left: 10%;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
   line-height: 1.6;
 }
 
@@ -98,7 +97,13 @@ header {
   font-size: 1.2rem;
   letter-spacing: 0.04em;
 }
+
 .hero-jp {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.55);
   opacity: 0;
   transition: opacity 1.5s ease;
 }
@@ -107,7 +112,17 @@ header {
   opacity: 1;
 }
 
-/* ================= discography ================= */
+/* ================= DISCOGRAPHY ================= */
+#discography {
+  max-width: 900px;
+  margin: 100px auto;
+  padding: 0 1.5rem;
+}
+
+#discography h2 {
+  font-size: 1.6rem;
+  margin-bottom: 3rem;
+}
 
 .album {
   display: grid;
@@ -144,18 +159,17 @@ header {
 
 .track-list a {
   text-decoration: none;
-  color: #111;
+  color: #fff;
 }
 
 .track-list a:hover {
   text-decoration: underline;
 }
 
-
 /* ================= ABOUT ================= */
 #about {
   max-width: 900px;
-  margin: 80px auto;
+  margin: 120px auto;
   padding: 0 1.5rem;
   text-align: center;
 }
@@ -178,6 +192,10 @@ header {
   line-height: 1.8;
 }
 
+.about-catch-jp {
+  opacity: 0.85;
+}
+
 .about-credits {
   font-size: 0.95rem;
   opacity: 0.8;
@@ -191,52 +209,13 @@ header {
 }
 
 /* ================= RESPONSIVE ================= */
-
-/* pickup */
 @media (max-width: 700px) {
-  .pickup-item img {
-    width: 45%;
+  .album {
+    grid-template-columns: 1fr;
   }
 
-  .pickup-text {
-    width: 55%;
-  }
-
-  .pickup-right .pickup-text {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    text-align: right;
-  }
-
-  .pickup-left .pickup-text {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-  }
-}
-
-/* tracks : small phone */
-@media (max-width: 420px) {
-  #tracks {
-    padding: 2rem 1rem;
-  }
-
-  .tracks-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.6rem;
-  }
-}
-
-/* tracks : normal phone */
-@media (min-width: 421px) and (max-width: 700px) {
-  #tracks {
-    padding: 2.5rem 1rem;
-  }
-
-  .tracks-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.6rem;
+  .hero-text {
+    left: 8%;
+    bottom: 12%;
   }
 }
