@@ -87,12 +87,24 @@ header {
 
 .hero-text {
   position: absolute;
-  bottom: 16%;
-  width: 100%;
-  text-align: center;
-  font-size: 22px;
-  line-height: 1.7;
-  padding: 0 20px;
+  bottom: 15%;
+  left: 10%;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+}
+
+.hero-en {
+  display: block;
+  font-size: 1.2rem;
+  letter-spacing: 0.04em;
+}
+.hero-jp {
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+#hero:hover .hero-jp {
+  opacity: 1;
 }
 
 /* ================= discography ================= */
