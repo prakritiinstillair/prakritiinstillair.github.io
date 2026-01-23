@@ -87,8 +87,10 @@ header {
 
 .hero-text {
   position: absolute;
+  max-width: 420px;
   bottom: 15%;
-  left: 10%;
+  right: 10%;
+  text-align: right;
   line-height: 1.6;
 }
 
@@ -96,6 +98,7 @@ header {
   display: block;
   font-size: 1.2rem;
   letter-spacing: 0.04em;
+  margin-bottom: 0.6rem;
 }
 
 .hero-jp {
