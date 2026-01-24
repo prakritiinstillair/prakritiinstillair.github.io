@@ -42,15 +42,15 @@ header {
 #slide-menu.open {
   transform: translateX(0);
 }
-
 #slide-menu .close-btn {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+  position: fixed;
+  top: 15px;
+  left: 15px;
   font-size: 28px;
   cursor: pointer;
+  z-index: 4000;
+  opacity: 0.8;
 }
-
 #slide-menu ul {
   list-style: none;
   padding: 0;
