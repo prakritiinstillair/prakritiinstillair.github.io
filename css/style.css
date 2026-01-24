@@ -12,9 +12,7 @@ body {
 
 /* ================= HEADER / MENU ================= */
 header {
-  position: fixed;
-  top: 15px;
-  left: 15px;
+  position: relative;
   z-index: 2000;
 }
 #menu-icon,
