@@ -48,6 +48,9 @@ header {
   background: rgba(0, 0, 0, 0.95);
   z-index: 3000;
   transition: transform 0.4s ease;
+  overflow-y: auto; 
+  /* iOSでのスクロールを滑らかにする（念のため） */
+  -webkit-overflow-scrolling: touch; 
 }
 #slide-menu.open {
   transform: translateX(0);
