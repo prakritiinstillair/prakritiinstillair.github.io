@@ -65,6 +65,13 @@ header {
   margin: 25px 0;
   padding-left: 25px;
 }
+#slide-menu ul li.menu-separator {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2); /* 白を少し透明に */
+    margin: 20px 0; /* 上下の余白 */
+    list-style: none; /* 点などを消す */
+}
+
 
 #slide-menu a {
   text-decoration: none;
