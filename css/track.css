@@ -72,9 +72,12 @@
 }
 /* ================= PREV / NEXT ================= */
 .nav-arrow {
-  font-size: 26px;      /* menu-icon と同じ */
-  width: 40px;
-  height: 40px;
+  font-size: 32px;          /* ← 少しだけ大きく */
+  font-weight: 300;         /* 細めで上品に */
+  text-decoration: none;    /* ← 下線消す（重要） */
+
+  width: 44px;
+  height: 44px;
 
   display: flex;
   align-items: center;
@@ -84,12 +87,13 @@
   border-radius: 50%;
   backdrop-filter: blur(4px);
 
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.7);
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
   z-index: 1500;
 }
+
 .nav-arrow:hover {
   color: #fff;
 }
