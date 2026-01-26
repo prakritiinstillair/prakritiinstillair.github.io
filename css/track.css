@@ -89,7 +89,7 @@
   white-space: normal;   /* ← これが最重要 */
 }
 .track-section.notes .track-text p {
-  margin: 0 0 0.4em;   /* ← 半行くらい */
+  margin: 0 0 0.8em;   /* ← 半行くらい */
 }
 
 .track-section.notes .track-text p:last-child {
