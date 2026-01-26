@@ -1,0 +1,78 @@
+/* ================= TRACK PAGE ================= */
+
+.track-page {
+  max-width: 720px;
+  margin: 120px auto;
+  padding: 0 1.5rem;
+}
+
+.track-title {
+  font-size: 1.8rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+.track-section {
+  margin-bottom: 4rem;
+}
+
+.track-section h2 {
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+  opacity: 0.6;
+  margin-bottom: 1.2rem;
+}
+
+.track-text {
+  font-size: 1rem;
+  line-height: 1.9;
+  white-space: pre-line;
+}
+
+.track-text.muted {
+  opacity: 0.75;
+}
+
+/* ================= PREV / NEXT ================= */
+
+.nav-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  text-decoration: none;
+  color: rgba(255,255,255,0.4);
+  z-index: 1500;
+  padding: 10px;
+}
+
+.nav-arrow:hover {
+  color: #fff;
+}
+
+.nav-arrow.prev {
+  left: 10px;
+}
+
+.nav-arrow.next {
+  right: 10px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 700px) {
+  .nav-arrow {
+    font-size: 1.5rem;
+    top: auto;
+    bottom: 20px;
+  }
+
+  .nav-arrow.prev {
+    left: 20px;
+  }
+
+  .nav-arrow.next {
+    right: 20px;
+  }
+}
