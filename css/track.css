@@ -71,12 +71,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
   background: rgba(0,0,0,0.3);
   border-radius: 50%;
   backdrop-filter: blur(4px);
-  }
-}
 
+  color: rgba(255,255,255,0.6);
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1500;
+}
 .nav-arrow:hover {
   color: #fff;
 }
