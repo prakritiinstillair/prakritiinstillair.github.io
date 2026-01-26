@@ -139,6 +139,15 @@
   transform: translate(2px, -50%);
 }
 
+/* 透明なタッチ領域を拡張 */
+.nav-arrow::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  bottom: -20px;
+  left: -30px;   /* ← 横を広げる（今の倍くらい） */
+  right: -30px;
+}
 /* ================= MOBILE ================= */
 
 @media (max-width: 700px) {
