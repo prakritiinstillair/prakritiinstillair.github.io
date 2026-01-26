@@ -85,18 +85,14 @@
   line-height: 1.9;
   box-shadow: 0 6px 20px rgba(0,0,0,0.25);
 }
+.track-section.notes .track-text {
+  white-space: normal;   /* ← これが最重要 */
+}
 .track-section.notes .track-text p {
   margin: 0 0 0.6em;   /* ← 半行くらい */
 }
 
 .track-section.notes .track-text p:last-child {
-  margin-bottom: 0;
-}
-.track-section .track-text p {
-  margin: 0 0 1em;   /* 1行分くらい */
-}
-
-.track-section .track-text p:last-child {
   margin-bottom: 0;
 }
 /* ================= PREV / NEXT ================= */
