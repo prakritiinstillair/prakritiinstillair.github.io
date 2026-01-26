@@ -89,7 +89,7 @@
   white-space: normal;   /* ← これが最重要 */
 }
 .track-section.notes .track-text p {
-  margin: 0 0 0.6em;   /* ← 半行くらい */
+  margin: 0 0 0.4em;   /* ← 半行くらい */
 }
 
 .track-section.notes .track-text p:last-child {
@@ -97,9 +97,9 @@
 }
 /* ================= PREV / NEXT ================= */
 .nav-arrow {
-  font-size: 32px;          /* ← 少しだけ大きく */
-  font-weight: 300;         /* 細めで上品に */
-  text-decoration: none;    /* ← 下線消す（重要） */
+  font-size: 32px;
+  font-weight: 300;
+  text-decoration: none;    
 
   width: 44px;
   height: 44px;
