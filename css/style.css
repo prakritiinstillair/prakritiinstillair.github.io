@@ -45,7 +45,7 @@ header {
   transform: translateX(-100%);
   width: 70%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(10, 12, 16, 0.95);
   z-index: 3000;
   transition: transform 0.4s ease;
   overflow-y: auto; 
