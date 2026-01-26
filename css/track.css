@@ -25,7 +25,7 @@
 }
 
 .track-text {
-  font-size: 1rem;
+  font-size: 1.05rem;
   line-height: 1.9;
   white-space: pre-line;
 }
@@ -37,11 +37,11 @@
 /* ================= LYRICS ================= */
 
 #lyrics pre {
-  font-family: inherit;          /* サイト全体と同じフォント */
-  font-size: 1rem;
-  line-height: 1.9;
+  font-family: inherit;          
+  font-size: 1.15rem;
+  line-height: 2.0;
 
-  white-space: pre-wrap;         /* 折り返し対応（超重要） */
+  white-space: pre-wrap;         /* 折り返し対応（重要） */
   word-break: break-word;
 
   margin: 0;
