@@ -95,56 +95,64 @@
 .track-section.notes .track-text p:last-child {
   margin-bottom: 0;
 }
-/* ================= PREV / NEXT ================= */
+/* ================= PREV / NEXT (SYMBOL STYLE) ================= */
+
 .nav-arrow {
-  font-size: 40px;
-  font-weight: 300;
-  text-decoration: none;    
-
-  width: 44px;
-  height: 44px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: rgba(0,0,0,0.3);
-  border-radius: 50%;
-  backdrop-filter: blur(4px);
-
-  color: rgba(255,255,255,0.7);
   position: fixed;
-  top: 50%;
+  top: 55%;
   transform: translateY(-50%);
-  z-index: 1500;
-}
 
-.nav-arrow:hover {
-  color: #fff;
+  font-size: 2.2rem;          /* 記号としての存在感 */
+  font-weight: 200;           /* かなり細め */
+  font-family: inherit;
+
+  color: rgba(255,255,255,0.35);
+  text-decoration: none;
+
+  background: none;
+  border-radius: 0;
+  width: auto;
+  height: auto;
+
+  z-index: 1500;
+  transition: color 0.25s ease, transform 0.25s ease;
 }
 
 .nav-arrow.prev {
-  left: 10px;
+  left: 14px;
 }
 
 .nav-arrow.next {
-  right: 10px;
+  right: 14px;
 }
 
-/* ================= RESPONSIVE ================= */
+.nav-arrow:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+/* 触ったとき、ほんの少しだけ動く */
+.nav-arrow.prev:hover {
+  transform: translate(-2px, -50%);
+}
+
+.nav-arrow.next:hover {
+  transform: translate(2px, -50%);
+}
+
+/* ================= MOBILE ================= */
 
 @media (max-width: 700px) {
   .nav-arrow {
-    font-size: 1.5rem;
     top: auto;
-    bottom: 20px;
+    bottom: 18px;
+    font-size: 1.8rem;
   }
 
   .nav-arrow.prev {
-    left: 20px;
+    left: 18px;
   }
 
   .nav-arrow.next {
-    right: 20px;
+    right: 18px;
   }
 }
