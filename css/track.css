@@ -48,7 +48,13 @@
 }
 
 /* ================= LYRICS ================= */
-
+/* lyrics の h2 を notes と同じにする */
+.track-section.lyrics h2 {
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  opacity: 0.6;
+  margin-bottom: 1.2rem;
+}
 #lyrics pre {
   font-family: inherit;          
   font-size: 1.15rem;
