@@ -23,7 +23,24 @@
   opacity: 0.6;
   margin-bottom: 1.2rem;
 }
+.track-header {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 1.5em;
+}
 
+.track-jacket {
+  width: 64px;        /* スマホ基準。PCなら80pxでも */
+  height: 64px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.track-title {
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
 .track-text {
   font-size: 1.05rem;
   line-height: 1.9;
