@@ -23,23 +23,19 @@
   opacity: 0.6;
   margin-bottom: 1.2rem;
 }
-.track-header {
-  display: flex;
-  align-items: center;
-  gap: 1em;
-  margin-bottom: 1.5em;
+.track-header.center {
+  text-align: center;
+  margin: 2em 0 2.5em;
 }
-
 .track-jacket {
-  width: 64px;        /* スマホ基準。PCなら80pxでも */
-  height: 64px;
-  object-fit: cover;
-  flex-shrink: 0;
+  width: 180px;      /* スマホなら140〜180で調整 */
+  max-width: 70vw;
+  height: auto;
+  margin: 0 auto 1em;
 }
-
 .track-title {
-  font-size: 1.6rem;
-  line-height: 1.2;
+  font-size: 1.8rem;
+  letter-spacing: 0.02em;
 }
 .track-text {
   font-size: 1.05rem;
