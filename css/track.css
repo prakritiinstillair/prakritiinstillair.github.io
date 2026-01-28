@@ -33,22 +33,16 @@
   height: auto;
   margin: 0 auto 1em;
 }
-.track-title {
-  font-size: 1.8rem;
-  letter-spacing: 0.02em;
-}
 .track-text {
   font-size: 1.05rem;
   line-height: 1.9;
   white-space: pre-line;
 }
-
 .track-text.muted {
   opacity: 0.75;
 }
 
 /* ================= LYRICS ================= */
-/* lyrics の h2 を notes と同じにする */
 .track-section.lyrics h2 {
   font-size: 0.85rem;
   letter-spacing: 0.15em;
