@@ -122,7 +122,7 @@
   transform: translateY(-50%);
 
   font-size: 2.6rem;          /* 記号としての存在感 */
-  font-weight: 400;           /* め */
+  font-weight: 400;           /* 線の細さ */
   font-family: inherit;
 
   color: rgba(255,255,255,0.35);
