@@ -58,7 +58,7 @@
 #lyrics pre {
   font-family: inherit;          
   font-size: 1.15rem;
-  line-height: 1.0;
+  line-height: 1.3;
 
   white-space: pre-wrap;         /* 折り返し対応（重要） */
   word-break: break-word;
@@ -101,7 +101,7 @@
   border-radius: 4px;
 
   font-size: 1.1rem;
-  line-height: 1.7;
+  line-height: 1.4;
   box-shadow: 0 6px 20px rgba(0,0,0,0.25);
 }
 .track-section.notes .track-text {
