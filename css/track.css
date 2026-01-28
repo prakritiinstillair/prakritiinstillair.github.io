@@ -121,11 +121,11 @@
   top: 55%;
   transform: translateY(-50%);
 
-  font-size: 3.6rem;          /* 記号としての存在感 */
-  font-weight: 700;           /* 線の細さ */
+  font-size: 2.6rem;          /* 記号としての存在感 */
+  font-weight: 400;           /* 線の細さ */
   font-family: inherit;
 
-  color: rgba(255,255,255,0.80);
+  color: rgba(255,255,255,0.5);
   text-decoration: none;
 
   background: none;
@@ -173,7 +173,7 @@
   .nav-arrow {
     top: auto;
     bottom: 18px;
-    font-size: 2.8rem;
+    font-size: 2.4rem;
   }
 
   .nav-arrow.prev {
