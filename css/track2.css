@@ -51,6 +51,8 @@
 .track-section.lyrics {
   background: #fff;   /* 背景白 */
   color: #000;         /* 文字黒 */
+  padding-left: 4.5rem;
+  padding-right: 4.5rem;
 }
 
 #lyrics pre {
