@@ -1,0 +1,127 @@
+/* ================= GLOBAL & FONTS ================= */
+body, html {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  color: #fff;
+  /* シンプルで洗練されたフォント指定 */
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+               "Hiragino Sans", "Noto Sans JP", sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ================= TRACK PAGE LAYOUT ================= */
+.track-page {
+  max-width: 100%; /* セクションの背景を横いっぱいに広げるため */
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* 中央揃えのヘッダー部分（ジャケットなど） */
+.track-header.center {
+  padding: 120px 1.5rem 60px;
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.track-jacket {
+  width: 180px;
+  max-width: 70vw;
+  height: auto;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.track-title {
+  font-size: 1.8rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+}
+
+/* ================= SECTION BASE ================= */
+.track-section {
+  padding: 4rem 1.5rem;
+}
+
+/* 各セクション内のコンテンツ幅制限 */
+.section-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.track-section h2 {
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  opacity: 0.6;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+/* ================= LYRICS (WHITE BACK) ================= */
+.track-section.lyrics {
+  background: #fff;   /* 背景白 */
+  color: #000;         /* 文字黒 */
+}
+
+#lyrics pre {
+  font-family: inherit;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+  padding: 0;
+  color: #1a1a1a;
+}
+
+/* ================= NOTES (BLACK BACK) ================= */
+.track-section.notes {
+  background: #000;   /* 背景黒 */
+  color: #fff;         /* 文字白 */
+  border-top: 1px solid #222;
+}
+
+.track-section.notes .track-text {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  white-space: normal;
+  opacity: 0.9;
+}
+
+.track-section.notes p {
+  margin-bottom: 1.5em;
+}
+
+/* ================= NAV ARROWS (SYMBOL STYLE) ================= */
+.nav-arrow {
+  position: fixed;
+  top: 55%;
+  transform: translateY(-50%);
+  font-size: 2.6rem;
+  color: rgba(127, 127, 127, 0.5); /* 中間色にしてどちらの背景でも見やすく */
+  text-decoration: none;
+  z-index: 1500;
+  transition: all 0.3s ease;
+  mix-blend-mode: difference; /* 背景色に合わせて色が反転する魔法の指定 */
+}
+
+.nav-arrow.prev { left: 20px; }
+.nav-arrow.next { right: 20px; }
+
+.nav-arrow:hover {
+  color: #fff;
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* スマホ対応：矢印を下部に配置 */
+@media (max-width: 700px) {
+  .nav-arrow {
+    top: auto;
+    bottom: 30px;
+    font-size: 2.2rem;
+    mix-blend-mode: normal; /* スマホでは視認性優先で固定 */
+    color: #888;
+  }
+}
