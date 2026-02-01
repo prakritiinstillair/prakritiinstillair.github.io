@@ -51,8 +51,8 @@
 .track-section.lyrics {
   background: #fff;   /* 背景白 */
   color: #000;         /* 文字黒 */
-  padding-left: 4.5rem;
-  padding-right: 4.5rem;
+  padding-left: 2.0rem;
+  padding-right: 2.0rem;
 }
 
 #lyrics pre {
@@ -90,11 +90,10 @@
   top: 55%;
   transform: translateY(-50%);
   font-size: 2.6rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
   z-index: 1500;
   transition: all 0.3s ease;
-  mix-blend-mode: difference; /* 背景色に合わせて色が反転する魔法の指定 */
 }
 
 .nav-arrow.prev { left: 20px; }
