@@ -1,12 +1,13 @@
+/* ================= TRACK PAGE ================= */
 
-/* ================= TRACK PAGE LAYOUT ================= */
 .track-page {
-  max-width: 100%; /* セクションの背景を横いっぱいに広げるため */
+  max-width: 100%;
   margin: 0 auto;
   padding: 0;
 }
 
-/* 中央揃えのヘッダー部分（ジャケットなど） */
+/* ===== HEADER ===== */
+
 .track-header.center {
   padding: 120px 1.5rem 60px;
   text-align: center;
@@ -29,14 +30,9 @@
 }
 
 /* ================= SECTION BASE ================= */
+
 .track-section {
   padding: 4rem 1.5rem;
-}
-
-/* 各セクション内のコンテンツ幅制限 */
-.section-inner {
-  max-width: 720px;
-  margin: 0 auto;
 }
 
 .track-section h2 {
@@ -47,70 +43,117 @@
   text-transform: uppercase;
 }
 
-/* ================= LYRICS (WHITE BACK) ================= */
+/* ================= LYRICS (WHITE FIELD) ================= */
+
 .track-section.lyrics {
-  background: #fff;   /* 背景白 */
-  color: #000;         /* 文字黒 */
-  padding-left: 2.0rem;
-  padding-right: 2.0rem;
+  background: #fff;
+  color: #000;
 }
 
 #lyrics pre {
+  max-width: 640px;              /* 読み幅を制御 */
+  margin: 0 auto;
+
   font-family: inherit;
-  font-size: 1.1rem;
-  line-height: 1.8;
+  font-size: 1.15rem;
+  line-height: 1.75;
+
   white-space: pre-wrap;
   word-break: break-word;
-  margin: 0;
-  padding: 0;
-  color: #1a1a1a;
+
+  color: #111;
 }
 
-/* ================= NOTES (BLACK BACK) ================= */
+/* lyrics 見出しも中央寄せ */
+.track-section.lyrics h2 {
+  text-align: center;
+}
+
+/* ================= NOTES (BLACK FIELD) ================= */
+
 .track-section.notes {
-  background: #000;   /* 背景黒 */
-  color: #fff;         /* 文字白 */
+  background: #000;
+  color: #fff;
   border-top: 1px solid #222;
 }
 
 .track-section.notes .track-text {
+  max-width: 640px;
+  margin: 0 auto;
+
   font-size: 1.05rem;
   line-height: 1.9;
-  white-space: normal;
   opacity: 0.9;
+
+  white-space: normal;
 }
 
 .track-section.notes p {
   margin-bottom: 1.5em;
 }
 
-/* ================= NAV ARROWS (SYMBOL STYLE) ================= */
+.track-section.notes p:last-child {
+  margin-bottom: 0;
+}
+
+/* ================= NAV ARROWS ================= */
+
 .nav-arrow {
   position: fixed;
   top: 55%;
   transform: translateY(-50%);
+
   font-size: 2.6rem;
-  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
+  font-family: inherit;
+
+  color: rgba(255,255,255,0.55);
   text-decoration: none;
+
   z-index: 1500;
-  transition: all 0.3s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-.nav-arrow.prev { left: 20px; }
-.nav-arrow.next { right: 20px; }
+.nav-arrow.prev { left: 14px; }
+.nav-arrow.next { right: 14px; }
 
 .nav-arrow:hover {
-  color: #fff;
-  transform: translateY(-50%) scale(1.1);
+  opacity: 0.9;
 }
 
-/* スマホ対応：矢印を下部に配置 */
+.nav-arrow.prev:hover {
+  transform: translate(-2px, -50%);
+}
+
+.nav-arrow.next:hover {
+  transform: translate(2px, -50%);
+}
+
+/* タッチ領域拡張（見た目は変えない） */
+.nav-arrow::before {
+  content: "";
+  position: absolute;
+  inset: -20px -30px;
+}
+
+/* ================= MOBILE ================= */
+
 @media (max-width: 700px) {
+  .track-header.center {
+    padding: 100px 1.2rem 50px;
+  }
+
+  #lyrics pre,
+  .track-section.notes .track-text {
+    max-width: 100%;
+  }
+
   .nav-arrow {
     top: auto;
-    bottom: 30px;
-    font-size: 2.2rem;
-    mix-blend-mode: normal; 
-    color: rgba(255,255,255,0.75);
+    bottom: 18px;
+    font-size: 2.4rem;
   }
- }
+
+  .nav-arrow.prev { left: 18px; }
+  .nav-arrow.next { right: 18px; }
+}
