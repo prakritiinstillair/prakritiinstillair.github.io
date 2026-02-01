@@ -90,7 +90,7 @@
   top: 55%;
   transform: translateY(-50%);
   font-size: 2.6rem;
-  color: rgba(127, 127, 127, 0.5); /* 中間色にしてどちらの背景でも見やすく */
+  color: rgba(255, 255, 255, 0.5);
   text-decoration: none;
   z-index: 1500;
   transition: all 0.3s ease;
