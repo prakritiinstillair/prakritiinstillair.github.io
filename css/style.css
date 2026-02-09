@@ -159,21 +159,25 @@ header {
   font-size: 1.1rem;
   margin-bottom: 4px;
 }
-
 .album-year {
+  position: relative;
+  text-align: center;   /* 2025 は常に中央 */
   font-size: 0.8rem;
   opacity: 0.6;
   margin-bottom: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+}
+
+.album-year .year {
+  display: inline-block;
 }
 
 .album-links {
-  font-size: 0.7rem;          /* 年より一段小さく */
-  opacity: 0.6;
+  position: absolute;
+  left: 50%;            /* 行の真ん中から */
+  margin-left: 32px;    /* そこから右へずらす */
+  font-size: 0.7rem;
   letter-spacing: 0.08em;
+  white-space: nowrap;
 }
 
 .album-links a {
