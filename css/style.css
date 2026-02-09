@@ -164,6 +164,31 @@ header {
   font-size: 0.8rem;
   opacity: 0.6;
   margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.album-links {
+  font-size: 0.7rem;          /* 年より一段小さく */
+  opacity: 0.6;
+  letter-spacing: 0.08em;
+}
+
+.album-links a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.album-links a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.album-links .sep {
+  margin: 0 2px;
+  opacity: 0.5;
 }
 
 .track-list {
