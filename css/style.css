@@ -156,14 +156,14 @@ header {
 }
 
 .album-title {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   margin-bottom: 4px;
 }
 .album-year {
   position: relative;
   text-align: center;   /* 2025 は常に中央 */
   font-size: 0.8rem;
-  opacity: 0.6;
+  opacity: 0.７;
   margin-bottom: 16px;
 }
 
@@ -176,7 +176,7 @@ header {
   left: 50%;            /* 行の真ん中から */
   margin-left: 48px;    /* そこから右へずらす */
   font-size: 0.7rem;
-  opacity: 0.4;
+  opacity: 0.55;
   letter-spacing: 0.08em;
   white-space: nowrap;
 }
