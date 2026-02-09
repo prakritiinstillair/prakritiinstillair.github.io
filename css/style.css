@@ -174,8 +174,9 @@ header {
 .album-links {
   position: absolute;
   left: 50%;            /* 行の真ん中から */
-  margin-left: 32px;    /* そこから右へずらす */
+  margin-left: 48px;    /* そこから右へずらす */
   font-size: 0.7rem;
+  opacity: 0.4;
   letter-spacing: 0.08em;
   white-space: nowrap;
 }
