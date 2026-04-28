@@ -99,7 +99,7 @@ opacity:.8;
 transition:.2s;
 }
 
-.social-icons a:hover svg{
+.social-icons img:hover{
 opacity:1;
 }
 /* ================= HERO ================= */
