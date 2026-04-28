@@ -83,18 +83,15 @@ header {
   font-size: 22px;
 }
 .social-icons{
-list-style:none;
 display:flex;
-gap:22px;
-justify-content:center;
+gap:18px;
+justify-content:flex-start;
+padding-left:25px;
 margin:18px 0;
-padding:0;
 }
-
 .social-icons img{
 width:20px;
 height:20px;
-fill:currentColor;
 opacity:.8;
 transition:.2s;
 }
