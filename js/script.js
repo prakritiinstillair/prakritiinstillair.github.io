@@ -23,16 +23,15 @@ document.querySelectorAll("#slide-menu a").forEach(link => {
   link.addEventListener("click", closeMenu);
 });
 
-
-// 新・強力スクロールグリッチ演出
+// 即時停止型・強力スクロールグリッチ演出
 (function() {
   let scrollTimeout;
   const body = document.body;
-  const blockCount = 5; // グリッチブロックの数（多いほど派手になるが重くなる）
+  const blockCount = 5; // グリッチブロックの数
   let glitchBlocks = [];
   let isGlitching = false;
 
-  // 1. グリッチ用のブロック（HTML要素）を動的に生成
+  // 1. グリッチ用のブロックを動的に生成
   function createGlitchBlocks() {
     for (let i = 0; i < blockCount; i++) {
       const block = document.createElement('div');
@@ -43,58 +42,54 @@ document.querySelectorAll("#slide-menu a").forEach(link => {
   }
   createGlitchBlocks();
 
-  // 2. ブロックの位置と動きをランダムに設定・適用する関数
+  // 2. ブロックの位置と動きをランダムに設定・適用
   function updateGlitchEffect() {
     if (!isGlitching) return;
 
-    glitchBlocks.forEach((block, index) => {
-      // ランダムな高さと位置（Y軸）を設定
+    glitchBlocks.forEach((block) => {
       const height = Math.random() * 40 + 10; // 10vh〜50vh
-      const top = Math.random() * (100 - height); // 0〜100 - height
+      const top = Math.random() * (100 - height);
 
-      // スタイルを適用（CSSアニメーションと組み合わせる）
       block.style.height = `${height}vh`;
       block.style.top = `${top}vh`;
       
-      // 左右に引きちぎる動き（transform）をランダムに
-      const translateX = (Math.random() - 0.5) * 50; // -25px〜25px
+      const translateX = (Math.random() - 0.5) * 60; // ズレ幅を少し強化
       block.style.transform = `translateX(${translateX}px)`;
       
-      // ブロックを活性化
       block.classList.add('active');
     });
 
-    // 次のフレームで再度アップデート（高速連打）
     requestAnimationFrame(updateGlitchEffect);
   }
 
   // 3. スクロールイベントの処理
   window.addEventListener('scroll', () => {
-    // 既にグリッチ中なら何もしない（多重起動防止）
     if (isGlitching) {
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(stopGlitch, 150); // スクロール停止検知
+      scrollTimeout = setTimeout(stopGlitch, 60); // 60ms動かなければ停止とみなす
       return;
     }
 
-    // スクロール開始！
+    // スクロール開始
     isGlitching = true;
     body.classList.add('scrolling');
-    requestAnimationFrame(updateGlitchEffect); // グリッチ描画ループを開始
+    requestAnimationFrame(updateGlitchEffect);
 
-    // スクロールが止まって150ms後にグリッチを止める
     clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(stopGlitch, 150);
+    scrollTimeout = setTimeout(stopGlitch, 60);
   }, { passive: true });
 
-  // 4. グリッチを止める関数
+  // 4. グリッチを「完全に、即座に」止める関数
   function stopGlitch() {
     isGlitching = false;
     body.classList.remove('scrolling');
-    // 全ブロックを非活性化し、transformをリセット
+    
     glitchBlocks.forEach(block => {
       block.classList.remove('active');
-      block.style.transform = 'none'; // これを入れないとブロックが画面に残る
+      block.style.transform = 'none';
+      block.style.height = '0';
     });
   }
 })();
+
+
