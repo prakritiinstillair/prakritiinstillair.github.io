@@ -21,45 +21,41 @@ body.scrolling {
 }
 
 /* JavaScriptで動的に生成する、グリッチブロックのスタイル */
-
 .glitch-block {
   position: fixed;
   left: 0;
   width: 100%;
+  z-index: 99999; /* 画面の最前面に */
+  pointer-events: none;
+  display: none;
   
-  /* 変更点①：最前面（メニューよりさらに手前）に配置して画面全体を覆う */
-  z-index: 99999; 
-  
-  pointer-events: none; /* クリックを邪魔しない */
-  display: none; /* 通常時は完全に非表示 */
-  
-  /* 変更点②：フィルターのブレンドモードを調整し、
-     背景が黒や不透明なセクションでも強制的に下の文字や画像を巻き込んで歪ませる */
-  mix-blend-mode: difference; /* または exclusion や hard-light もインディーズ感が出ます */
-  
-  -webkit-backdrop-filter: blur(2px) contrast(200%) brightness(150%) hue-rotate(30deg);
-  backdrop-filter: blur(2px) contrast(200%) brightness(150%) hue-rotate(30deg);
+  /* 変更点：バグの多い backdrop-filter はやめ、
+     画面全体の色とコントラストを強制的に破壊するプレーンなフィルターに変更 */
+  filter: contrast(300%) hue-rotate(90deg) brightness(1.2);
 }
-
 
 /* スクロール中（active）だけ一瞬で表示し、アニメーションさせる */
 .glitch-block.active {
   display: block;
-  animation: block-flicker 0.15s steps(1) infinite;
+  animation: block-flicker 0.1s steps(1) infinite;
 }
 
 /* ブロック自体を高速でチラつかせるアニメーション */
 @keyframes block-flicker {
   0%, 100% {
-    transform: translate(0, 0) scaleY(1);
-    backdrop-filter: blur(1px) contrast(150%) brightness(120%) hue-rotate(10deg);
+    transform: translate(0, 0);
+    filter: contrast(300%) hue-rotate(90deg) brightness(1.2);
+    background: transparent;
   }
   50% {
-    transform: translate(-15px, -2px) scaleY(0.9);
-    backdrop-filter: blur(2px) contrast(200%) brightness(150%) hue-rotate(-15deg);
+    /* 変更点：50%の確率で、ブロックの範囲内にある「すべての要素（黒背景含む）」を
+       強制的に左に 30px ズラし、色反転（invert）やブレを加える */
+    transform: translate(-30px, 3px);
+    filter: contrast(200%) invert(100%) blur(1px);
+    /* 真っ黒な背景の部分にもノイズの塊が見えるよう、一瞬だけ超薄い白を混ぜる */
+    background: rgba(255, 255, 255, 0.05);
   }
 }
-
 
 
 
