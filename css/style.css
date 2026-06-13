@@ -24,12 +24,12 @@ body::after {
   /* body::after の background をこれに差し替え */
 background: 
   /* 1pxの白黒の粒をランダムに配置して砂嵐を作る */
-  radial-gradient(circle at 50% 50%, rgba(0,0,0,0.15) 0%, transparent 100%),
+  radial-gradient(circle at 50% 50%, rgba(0,0,0,0.08) 0%, transparent 100%),
   /* 走査線（極薄の白） */
-  linear-gradient(rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.15) 50%);
+  linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(90, 130, 180, 0.09) 50%);
 
 /* 粒と線を細かく噛み合わせる */
-background-size: 2px 2px, 100% 4px; 
+background-size: 3px 3px, 100% 4px; 
 
   z-index: 9999; /* 一番手前に配置 */
   opacity: 0;
