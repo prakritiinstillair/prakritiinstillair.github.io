@@ -23,34 +23,24 @@ document.querySelectorAll("#slide-menu a").forEach(link => {
   link.addEventListener("click", closeMenu);
 });
 
-// 即時停止型・ページ全体スクロールグリッチ演出（最適化版）
+// スクロール時の微細グリッチ演出
 (function() {
   let scrollTimeout;
   const body = document.body;
-  let isGlitching = false;
 
   window.addEventListener('scroll', () => {
-    if (isGlitching) {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(stopGlitch, 60);
-      return;
-    }
-
-    // スクロール開始、bodyを直接バグらせる
-    isGlitching = true;
+    // スクロールが始まったらクラスを付与
     body.classList.add('scrolling');
 
+    // スクロールが動いている間はタイマーを常にリセット
     clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(stopGlitch, 60);
+
+    // スクロールが止まって150ms後にクラスを削除（静止状態に戻る）
+    scrollTimeout = setTimeout(() => {
+      body.classList.remove('scrolling');
+    }, 150);
   }, { passive: true });
-
-  function stopGlitch() {
-    isGlitching = false;
-    body.classList.remove('scrolling');
-  }
 })();
-
-
 
 
 
