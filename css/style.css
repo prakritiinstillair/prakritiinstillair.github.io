@@ -9,44 +9,58 @@ body {
   background: #000;
   overflow-x: hidden;
 }
+
 /* ==========================================================================
-   Scroll Glitch Effect
+   New Intense Scroll Glitch Effect
    ========================================================================== */
 
-/* ノイズを重ねるためのベース（画面全体を覆うレイヤー） */
-body::after {
-  content: "";
+/* エフェクト発生中、画面全体に強力な色収差（赤・青のズレ）を加える */
+body.scrolling {
+  /* 手法：複数の影をわずかにずらして重ね、RGBずらしを表現 */
+  text-shadow: -1px 0 0 rgba(255, 0, 0, 0.4), 1px 0 0 rgba(0, 0, 255, 0.4);
+  /* さらに、画面全体にわずかな赤みを帯びたブラーを加える */
+  transition: filter 0.05s ease;
+  filter: drop-shadow(-1px 0 0 rgba(255, 0, 0, 0.2)) drop-shadow(1px 0 0 rgba(0, 0, 255, 0.2));
+}
+
+/* JavaScriptで動的に生成する、グリッチブロックのスタイル */
+.glitch-block {
   position: fixed;
-  top: -50px;
-  left: -50px;
-  right: -50px;
-  bottom: -50px;
-  /* 非常に細かい白黒のストライプ（擬似的な走査線・デジタルノイズ） */
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), 
-              linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-  background-size: 100% 8px, 12px 100%;
-  z-index: 9999; /* 一番手前に配置 */
-  opacity: 0;
-  pointer-events: none; /* 下の要素のクリックを邪魔しない */
-  transition: opacity 0.4s ease;
+  left: 0;
+  width: 100%;
+  /* 手前の要素（メニューなど）を隠さないように配置 */
+  z-index: 1500;
+  pointer-events: none; /* クリックを邪魔しない */
+  opacity: 0.9;
+  
+  /* backdrop-filter で、このブロックの下にあるコンテンツを歪ませる */
+  -webkit-backdrop-filter: blur(1px) contrast(150%) brightness(120%) hue-rotate(10deg);
+  backdrop-filter: blur(1px) contrast(150%) brightness(120%) hue-rotate(10deg);
+  
+  /* 初期状態では透明にしておく */
+  transition: opacity 0.05s ease, transform 0.03s ease;
 }
 
-/* スクロール中だけ適用されるスタイル */
-body.scrolling::after {
+/* グリッチブロックが表示された時のスタイル */
+.glitch-block.active {
   opacity: 1;
-  /* 高速で位置をわずかにずらすアニメーション（グリッチ感） */
-  animation: mini-glitch 0.15s infinite alternate;
+  /* JavaScriptで動的にアニメーションさせる */
+  animation: block-flicker 0.2s steps(1) infinite;
 }
 
-/* 微細なブレを生み出すアニメーション */
-@keyframes mini-glitch {
-  0% { transform: translate(0, 0); filter: blur(0.3px); }
-  20% { transform: translate(-1px, 1px); }
-  40% { transform: translate(1px, -1px); }
-  60% { transform: translate(-0.5px, -0.5px); }
-  80% { transform: translate(1.5px, 0.5px); }
-  100% { transform: translate(0, 0); filter: blur(0px); }
+/* ブロック自体を高速でチラつかせるアニメーション */
+@keyframes block-flicker {
+  0%, 100% {
+    transform: translate(0, 0) scaleY(1);
+    backdrop-filter: blur(1px) contrast(150%) brightness(120%) hue-rotate(10deg);
+  }
+  50% {
+    /* 50%の確率で、左右に大きくズラし、色を変え、少し縮める */
+    transform: translate(-10px, -2px) scaleY(0.9);
+    backdrop-filter: blur(2px) contrast(200%) brightness(150%) hue-rotate(-15deg);
+  }
 }
+
 
 /* ================= HEADER / MENU ================= */
 header {
