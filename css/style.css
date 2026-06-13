@@ -21,10 +21,16 @@ body::after {
   left: -50px;
   right: -50px;
   bottom: -50px;
-  /* 非常に細かい白黒のストライプ（擬似的な走査線・デジタルノイズ） */
-  background: linear-gradient(rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.15) 50%), 
-              linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-  background-size: 100% 2px, 3px 100%;
+  /* body::after の background をこれに差し替え */
+background: 
+  /* 1pxの白黒の粒をランダムに配置して砂嵐を作る */
+  radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 100%),
+  /* 走査線（極薄の白） */
+  linear-gradient(rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.06) 50%);
+
+/* 粒と線を細かく噛み合わせる */
+background-size: 3px 3px, 100% 4px; 
+
   z-index: 9999; /* 一番手前に配置 */
   opacity: 0;
   pointer-events: none; /* 下の要素のクリックを邪魔しない */
@@ -40,15 +46,14 @@ body.home-page.scrolling::after {
 
 /* 微細なブレを生み出すアニメーション */
 @keyframes mini-glitch {
-  0% { transform: translate(0, 0); filter: blur(0.6px); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(1px, -1px); }
+  0% { transform: translate(0, 0); filter: blur(0px); }
+  20% { transform: translate(-1px, 0.5px); }
+  42% { transform: translate(-4px, -3px); filter: blur(0.5px) brightness(1.2); } 
+  45% { transform: translate(0, 0); filter: blur(0px); }
   60% { transform: translate(-0.5px, -0.5px); }
-  80% { transform: translate(3px, 1.5px); }
-  100% { transform: translate(0, 0); filter: blur(2px); }
+  80% { transform: translate(1px, 0.5px); }
+  100% { transform: translate(0, 0); }
 }
-
-
 
 /* ================= HEADER / MENU ================= */
 header {
