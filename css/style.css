@@ -14,7 +14,7 @@ body {
    ========================================================================== */
 
 /* ノイズを重ねるためのベース（画面全体を覆うレイヤー） */
-body::after {
+body.home-page::after {
   content: "";
   position: fixed;
   top: -50px;
@@ -32,7 +32,7 @@ body::after {
 }
 
 /* スクロール中だけ適用されるスタイル */
-body.scrolling::after {
+body.home-page.scrolling::after {
   opacity: 1;
   /* 高速で位置をわずかにずらすアニメーション（グリッチ感） */
   animation: mini-glitch 0.15s infinite alternate;
