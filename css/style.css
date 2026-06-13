@@ -21,26 +21,24 @@ body::after {
   left: -50px;
   right: -50px;
   bottom: -50px;
-  /* body::after の background をこれに差し替え */
-background: 
-  /* 1pxの白黒の粒をランダムに配置して砂嵐を作る */
-  radial-gradient(circle at 50% 50%, rgba(0,0,0,0.08) 0%, transparent 100%),
-  /* 走査線（極薄の白） */
-  linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(90, 130, 180, 0.09) 50%);
+  background: 
+    /* 修正点①：粒の色を「黒」から「薄い白」に変更（これで砂嵐がハッキリ見えます） */
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 100%),
+    /* 走査線（青）：これまでのままでOK */
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(90, 130, 180, 0.09) 50%);
 
-/* 粒と線を細かく噛み合わせる */
-background-size: 6px 6px, 100% 8px; 
+  /* 修正点②：粒のサイズを少し小さく(4px)して、密度を高める（ザラザラ感アップ） */
+  background-size: 4px 4px, 100% 8px; 
 
-  z-index: 9999; /* 一番手前に配置 */
+  z-index: 9999;
   opacity: 0;
-  pointer-events: none; /* 下の要素のクリックを邪魔しない */
+  pointer-events: none;
   transition: opacity 0.2s ease;
 }
 
 /* スクロール中だけ適用されるスタイル */
 body.home-page.scrolling::after {
   opacity: 1;
-  /* 高速で位置をわずかにずらすアニメーション（グリッチ感） */
   animation: mini-glitch 0.15s infinite alternate;
 }
 
@@ -48,8 +46,9 @@ body.home-page.scrolling::after {
 @keyframes mini-glitch {
   0% { transform: translate(0, 0); filter: blur(0px); }
   20% { transform: translate(-1px, 0.5px); }
-  42% { transform: translate(-12px, -3px); filter: blur(0.5px) brightness(1.2); } 
-  45% { transform: translate(0, 0); filter: blur(0px); }
+  /* 修正点③：42%の一瞬だけ、少し強めに「左」に引きちぎる（これでフックが作れます） */
+  42% { transform: translate(-6px, -1px); filter: brightness(1.2); } 
+  45% { transform: translate(0, 0); }
   60% { transform: translate(-0.5px, -0.5px); }
   80% { transform: translate(1px, 0.5px); }
   100% { transform: translate(0, 0); }
