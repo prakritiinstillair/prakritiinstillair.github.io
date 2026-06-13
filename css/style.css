@@ -11,49 +11,52 @@ body {
 }
 
 /* ==========================================================================
-   Intense Scroll Glitch Effect (Instant Stop Version)
+   Ultimate Full-Page Scroll Glitch (Instant Stop)
    ========================================================================== */
 
-/* エフェクト発生中、画面全体に強力な色収差（赤・青のズレ）を加える */
-body.scrolling {
-  text-shadow: -1px 0 0 rgba(255, 0, 0, 0.4), 1px 0 0 rgba(0, 255, 0, 0.4);
-  filter: drop-shadow(-1px 0 0 rgba(255, 0, 0, 0.2)) drop-shadow(1px 0 0 rgba(0, 255, 0, 0.2));
-}
-
-/* JavaScriptで動的に生成する、グリッチブロックのスタイル */
+/* 通常時のグリッチブロック（今回は不要になったので完全に消滅させます） */
 .glitch-block {
-  position: fixed;
-  left: 0;
-  width: 100%;
-  z-index: 99999; /* 画面の最前面に */
-  pointer-events: none;
-  display: none;
+  display: none !important;
+}
+
+/* 【ここが本命】
+   スクロール中、ページ全体（文字、画像、背景すべて）を
+   超高速で左右上下に引きちぎり、色を反転させてチカチカさせる
+*/
+body.scrolling {
+  /* 画面全体の文字に、強烈な赤と緑のRGBズレ（色収差）を発生させる */
+  text-shadow: -3px 0 0 #ff0055, 3px 0 0 #00ff66;
   
-  /* 変更点：バグの多い backdrop-filter はやめ、
-     画面全体の色とコントラストを強制的に破壊するプレーンなフィルターに変更 */
-  filter: contrast(300%) hue-rotate(90deg) brightness(1.2);
+  /* 高速グリッチアニメーションをページ全体に適用 */
+  animation: mega-glitch-page 0.1s steps(1) infinite;
 }
 
-/* スクロール中（active）だけ一瞬で表示し、アニメーションさせる */
-.glitch-block.active {
-  display: block;
-  animation: block-flicker 0.1s steps(1) infinite;
-}
-
-/* ブロック自体を高速でチラつかせるアニメーション */
-@keyframes block-flicker {
+/* ページ全体を強制破壊するアニメーション */
+@keyframes mega-glitch-page {
   0%, 100% {
-    transform: translate(0, 0);
-    filter: contrast(300%) hue-rotate(90deg) brightness(1.2);
-    background: transparent;
+    transform: translate(0, 0) skewX(0deg);
+    filter: invert(0%) contrast(100%) brightness(1);
+    background-color: #000000;
   }
-  50% {
-    /* 変更点：50%の確率で、ブロックの範囲内にある「すべての要素（黒背景含む）」を
-       強制的に左に 30px ズラし、色反転（invert）やブレを加える */
-    transform: translate(-30px, 3px);
-    filter: contrast(200%) invert(100%) blur(1px);
-    /* 真っ黒な背景の部分にもノイズの塊が見えるよう、一瞬だけ超薄い白を混ぜる */
-    background: rgba(255, 255, 255, 0.05);
+  20% {
+    /* 画面全体を左に15pxズラし、色を完全に反転（黒背景が白に、白文字が黒に！） */
+    transform: translate(-15px, 2px) skewX(3deg);
+    filter: invert(100%) contrast(200%);
+  }
+  40% {
+    /* 画面全体を右に20pxズラし、画面を一瞬セピア色に歪ませる */
+    transform: translate(20px, -3px) skewX(-2deg);
+    filter: sepia(100%) hue-rotate(90deg) brightness(1.3);
+  }
+  60% {
+    /* 画面全体を上に5pxズラし、ノイズのブレを発生させる */
+    transform: translate(-5px, 5px) skewX(0deg);
+    filter: contrast(300%) brightness(1.5);
+  }
+  80% {
+    /* 一瞬だけ画面全体を激しくネガ反転（フラッシュ）させる */
+    transform: translate(10px, -1px) skewX(-5deg);
+    filter: invert(100%) hue-rotate(180deg);
   }
 }
 
