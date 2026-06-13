@@ -22,3 +22,22 @@ closeBtn.addEventListener("click", closeMenu);
 document.querySelectorAll("#slide-menu a").forEach(link => {
   link.addEventListener("click", closeMenu);
 });
+
+// スクロール時の微細グリッチ演出
+(function() {
+  let scrollTimeout;
+  const body = document.body;
+
+  window.addEventListener('scroll', () => {
+    // スクロールが始まったらクラスを付与
+    body.classList.add('scrolling');
+
+    // スクロールが動いている間はタイマーを常にリセット
+    clearTimeout(scrollTimeout);
+
+    // スクロールが止まって150ms後にクラスを削除（静止状態に戻る）
+    scrollTimeout = setTimeout(() => {
+      body.classList.remove('scrolling');
+    }, 150);
+  }, { passive: true });
+})();
