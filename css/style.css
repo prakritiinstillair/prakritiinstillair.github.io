@@ -28,32 +28,29 @@ body.scrolling {
   animation: mega-glitch-page 0.1s steps(1) infinite;
 }
 
-/* ページ全体を強制破壊するアニメーション */
 @keyframes mega-glitch-page {
   0%, 100% {
     transform: translate(0, 0) skewX(0deg);
-    filter: invert(0%) contrast(100%) brightness(1);
-    background-color: #000000;
+    filter: brightness(1);
   }
   20% {
-    /* 画面全体を左に15pxズラし、色を完全に反転（黒背景が白に、白文字が黒に！） */
-    transform: translate(-15px, 2px) skewX(3deg);
-    filter: invert(100%) contrast(200%);
+    /* 画面を左に5pxだけズラし、わずかにセピア調（色あせ）にする */
+    transform: translate(-5px, 1px) skewX(0.5deg);
+    filter: sepia(30%) brightness(1.1);
   }
   40% {
-    /* 画面全体を右に20pxズラし、画面を一瞬セピア色に歪ませる */
-    transform: translate(20px, -3px) skewX(-2deg);
-    filter: sepia(100%) hue-rotate(90deg) brightness(1.3);
+    /* 画面を右に7pxズラし、ちょっと暗くする */
+    transform: translate(7px, -1px) skewX(-0.5deg);
+    filter: brightness(0.9);
   }
   60% {
-    /* 画面全体を上に5pxズラし、ノイズのブレを発生させる */
-    transform: translate(-5px, 5px) skewX(0deg);
-    filter: contrast(300%) brightness(1.5);
+    /* 画面の文字をほんの少しだけブレさせる */
+    transform: translate(-3px, 2px);
+    filter: contrast(120%);
   }
   80% {
-    /* 一瞬だけ画面全体を激しくネガ反転（フラッシュ）させる */
-    transform: translate(10px, -1px) skewX(-5deg);
-    filter: invert(100%) hue-rotate(180deg);
+    /* 画面を右に4pxズラすだけ */
+    transform: translate(4px, 0px);
   }
 }
 
