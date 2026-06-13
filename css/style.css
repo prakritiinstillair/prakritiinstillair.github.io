@@ -21,17 +21,26 @@ body.scrolling {
 }
 
 /* JavaScriptで動的に生成する、グリッチブロックのスタイル */
+
 .glitch-block {
   position: fixed;
   left: 0;
   width: 100%;
-  z-index: 1500;
-  pointer-events: none; /* クリックを邪魔しない */
-  display: none; /* 通常時は完全に非表示（存在を消す） */
   
-  -webkit-backdrop-filter: blur(1px) contrast(150%) brightness(120%) hue-rotate(10deg);
-  backdrop-filter: blur(1px) contrast(150%) brightness(120%) hue-rotate(10deg);
+  /* 変更点①：最前面（メニューよりさらに手前）に配置して画面全体を覆う */
+  z-index: 99999; 
+  
+  pointer-events: none; /* クリックを邪魔しない */
+  display: none; /* 通常時は完全に非表示 */
+  
+  /* 変更点②：フィルターのブレンドモードを調整し、
+     背景が黒や不透明なセクションでも強制的に下の文字や画像を巻き込んで歪ませる */
+  mix-blend-mode: difference; /* または exclusion や hard-light もインディーズ感が出ます */
+  
+  -webkit-backdrop-filter: blur(2px) contrast(200%) brightness(150%) hue-rotate(30deg);
+  backdrop-filter: blur(2px) contrast(200%) brightness(150%) hue-rotate(30deg);
 }
+
 
 /* スクロール中（active）だけ一瞬で表示し、アニメーションさせる */
 .glitch-block.active {
