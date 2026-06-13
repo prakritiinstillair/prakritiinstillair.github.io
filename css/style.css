@@ -29,7 +29,7 @@ background:
   linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(90, 130, 180, 0.09) 50%);
 
 /* 粒と線を細かく噛み合わせる */
-background-size: 3px 3px, 100% 4px; 
+background-size: 6px 6px, 100% 8px; 
 
   z-index: 9999; /* 一番手前に配置 */
   opacity: 0;
