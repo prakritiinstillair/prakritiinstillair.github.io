@@ -14,12 +14,6 @@ body {
    Ultimate Full-Page Scroll Glitch (Instant Stop)
    ========================================================================== */
 
-
-
-/* 
-   スクロール中、ページ全体（文字、画像、背景すべて）を
-   超高速で左右上下に引きちぎり、色を反転させてチカチカさせる
-*/
 body.scrolling {
   /* 画面全体の文字に、強烈な赤と緑のRGBズレ（色収差）を発生させる */
   text-shadow: -3px 0 0 #ff0055, 3px 0 0 #00ff66;
@@ -30,17 +24,17 @@ body.scrolling {
 
 @keyframes mega-glitch-page {
   0%, 100% {
-    transform: translate(0, 0) skewX(0deg);
+    transform: translate(0, 0);
     filter: brightness(1);
   }
   20% {
     /* 画面を左に5pxだけズラし、わずかにセピア調（色あせ）にする */
-    transform: translate(-5px, 1px) skewX(0.5deg);
+    transform: translate(-5px, 1px);
     filter: sepia(30%) brightness(1.1);
   }
   40% {
     /* 画面を右に7pxズラし、ちょっと暗くする */
-    transform: translate(7px, -1px) skewX(-0.5deg);
+    transform: translate(7px, -1px);
     filter: brightness(0.9);
   }
   60% {
