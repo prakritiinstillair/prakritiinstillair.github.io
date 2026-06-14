@@ -42,5 +42,32 @@ document.querySelectorAll("#slide-menu a").forEach(link => {
   }, { passive: true });
 })();
 
+// ===============================
+// MASCOT CONTROL
+// ===============================
+(function() {
+  const mascot = document.getElementById('scroll-mascot');
+  
+  // HTML側にマスコットの要素がない場合のコードエラーを防ぐ安全弁
+  if (!mascot) return; 
+
+  let mascotTimeout;
+
+  window.addEventListener('scroll', () => {
+    // スクロールが始まったら出現＆アニメ開始クラスを付与
+    mascot.classList.add('is-moving');
+
+    // スクロール中の間はタイマーをクリアし続ける
+    clearTimeout(mascotTimeout);
+
+    // スクロールが止まって200ms後に引っ込める
+    mascotTimeout = setTimeout(() => {
+      mascot.classList.remove('is-moving');
+    }, 200); 
+  }, { passive: true }); // パフォーマンス向上のためpassiveを追加
+})();
+
+
+
 
 
