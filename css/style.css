@@ -22,11 +22,18 @@ body::after {
   right: -50px;
   bottom: -50px;
   background: 
-    /* 修正点①：粒の色を「黒」から「薄い白」に変更（これで砂嵐がハッキリ見えます） */
+    /* 「薄い白」の点） */
     radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 100%),
-    /* 走査線（青）：これまでのままでOK */
-    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(90, 130, 180, 0.09) 50%);
-
+    /* 走査線（青） */
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(90, 130, 180, 0.09) 50%),
+     /* 波紋： */
+repeating-radial-gradient(
+  circle at 80px calc(100% - 100px),
+  rgba(255,255,255,0.04) 0,
+  rgba(255,255,255,0.04) 1px,
+  transparent 1px,
+  transparent 20px
+)；
   /* 修正点②：粒のサイズを少し小さく(4px)して、密度を高める（ザラザラ感アップ） */
   background-size: 4px 4px, 100% 8px; 
 
