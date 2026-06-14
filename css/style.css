@@ -22,7 +22,7 @@ body::after {
   right: -50px;
   bottom: -50px;
   background: 
-    /* 「薄い白」の点） */
+    /* 「薄い白」の点 */
     radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 100%),
     /* 走査線（青） */
     linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(90, 130, 180, 0.09) 50%),
@@ -34,7 +34,7 @@ repeating-radial-gradient(
   transparent 1px,
   transparent 20px
 )；
-  /* 修正点②：粒のサイズを少し小さく(4px)して、密度を高める（ザラザラ感アップ） */
+  /* 粒のサイズを少し小さく(4px)して、密度を高める（ザラザラ感アップ） */
   background-size: 4px 4px, 100% 8px; 
 
   z-index: 9999;
@@ -53,7 +53,6 @@ body.home-page.scrolling::after {
 @keyframes mini-glitch {
   0% { transform: translate(0, 0); filter: blur(0px); }
   20% { transform: translate(-1px, 0.5px); }
-  /* 修正点③：42%の一瞬だけ、少し強めに「左」に引きちぎる（これでフックが作れます） */
   42% { transform: translate(-6px, -1px); filter: brightness(1.2); } 
   45% { transform: translate(0, 0); }
   60% { transform: translate(-0.5px, -0.5px); }
@@ -84,7 +83,7 @@ body.home-page.scrolling::after {
 
 /* 【重要】スクロール中の処理 */
 #scroll-mascot.is-moving {
-  left: -30px; /* 画面に出てくるを調整 */
+  left: -30px; /* 画面に出てくる量を調整 */
 }
 
 /* スクロール中だけ、2コマを交互に表示するアニメーションを起動 */
