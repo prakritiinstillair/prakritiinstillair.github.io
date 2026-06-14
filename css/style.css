@@ -57,7 +57,7 @@ body.home-page.scrolling::after {
 #scroll-mascot {
   position: fixed;
   bottom: 20px;
-  left: -200px; /* 画像のサイズに合わせて調整（完全に隠れる太さ） */
+  left: -200px; /* 画像のサイズに合わせて調整（はみ出てる） */
   z-index: 9998;
   pointer-events: none;
   transition: left 0.4s ease-in-out;
@@ -65,7 +65,7 @@ body.home-page.scrolling::after {
 
 /* 画像2枚をぴったり重ねる */
 #scroll-mascot img {
-  width: 150px; /* 表示サイズ */
+  width: 200px; /* 表示サイズ */
   height: auto;
 }
 #scroll-mascot .img-playing {
