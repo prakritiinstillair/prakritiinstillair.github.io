@@ -23,14 +23,14 @@ body::after {
   bottom: -50px;
   background: 
     /* 「薄い白」の点 */
-    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 100%),
+    radial-gradient(circle at 50% 50%, rgba(255, 100, 180, 0.08) 0%, transparent 100%),
     /* 走査線（青） */
-    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(90, 130, 180, 0.09) 50%),
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(255, 255, 255, 0.09) 50%),
      /* 波紋： */
 repeating-radial-gradient(
   circle at 120px calc(100% - 100px),
-  rgba(255,255,255,0.12) 0,
-  rgba(255,255,255,0.12) 1px,
+  rgba(100,230,255,0.12) 0,
+  rgba(100,230,255,0.12) 1px,
   transparent 1px,
   transparent 20px
 );
