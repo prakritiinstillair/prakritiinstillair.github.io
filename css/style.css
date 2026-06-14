@@ -54,6 +54,51 @@ body.home-page.scrolling::after {
   100% { transform: translate(0, 0); }
 }
 
+#scroll-mascot {
+  position: fixed;
+  bottom: 20px;
+  left: -200px; /* 画像のサイズに合わせて調整（完全に隠れる太さ） */
+  z-index: 9998;
+  pointer-events: none;
+  transition: left 0.4s ease-in-out;
+}
+
+/* 画像2枚をぴったり重ねる */
+#scroll-mascot img {
+  width: 150px; /* 表示サイズ */
+  height: auto;
+}
+#scroll-mascot .img-playing {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0; /* 普段は2枚目を透明にしておく */
+}
+
+/* 【重要】スクロール中の処理 */
+#scroll-mascot.is-moving {
+  left: 20px; /* 画面内に出てくる */
+}
+
+/* スクロール中だけ、2コマを交互に表示するアニメーションを起動 */
+#scroll-mascot.is-moving .img-normal {
+  animation: strokeAnime 0.3s steps(1) infinite;
+}
+#scroll-mascot.is-moving .img-playing {
+  animation: strokeAnime2 0.3s steps(1) infinite;
+}
+
+/* 2コマアニメ用のパラパラ設定 */
+@keyframes strokeAnime {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+@keyframes strokeAnime2 {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+
 /* ================= HEADER / MENU ================= */
 header {
   position: relative;
