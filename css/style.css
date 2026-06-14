@@ -28,14 +28,14 @@ body::after {
     linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(90, 130, 180, 0.09) 50%),
      /* 波紋： */
 repeating-radial-gradient(
-  circle at 80px calc(100% - 100px),
-  rgba(255,255,255,0.04) 0,
-  rgba(255,255,255,0.04) 1px,
+  circle at 120px calc(100% - 100px),
+  rgba(255,255,255,0.12) 0,
+  rgba(255,255,255,0.12) 1px,
   transparent 1px,
   transparent 20px
-)；
+);
   /* 粒のサイズを少し小さく(4px)して、密度を高める（ザラザラ感アップ） */
-  background-size: 4px 4px, 100% 8px; 
+  background-size: 4px 4px, 100% 8px,100% 100%; 
 
   z-index: 9999;
   opacity: 0;
