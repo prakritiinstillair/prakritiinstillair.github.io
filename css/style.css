@@ -57,7 +57,7 @@ body.home-page.scrolling::after {
 #scroll-mascot {
   position: fixed;
   bottom: 20px;
-  left: -130px; /* 画像のサイズに合わせて調整（はみ出てる） */
+  left: -140px; /* 画像のサイズに合わせて調整（はみ出てる） */
   z-index: 9998;
   pointer-events: none;
   transition: left 0.4s ease-in-out;
@@ -77,7 +77,7 @@ body.home-page.scrolling::after {
 
 /* 【重要】スクロール中の処理 */
 #scroll-mascot.is-moving {
-  left: -30px; /* 画面内に出てくる */
+  left: -30px; /* 画面に出てくるを調整 */
 }
 
 /* スクロール中だけ、2コマを交互に表示するアニメーションを起動 */
