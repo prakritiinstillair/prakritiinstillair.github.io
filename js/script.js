@@ -15,13 +15,15 @@ function closeMenu() {
   menuIcon.style.display = "block";
 }
 
-menuIcon.addEventListener("click", openMenu);
-closeBtn.addEventListener("click", closeMenu);
+if (menuIcon && closeBtn && menu) {
+  menuIcon.addEventListener("click", openMenu);
+  closeBtn.addEventListener("click", closeMenu);
 
-// メニュー内リンクを押したら閉じる
-document.querySelectorAll("#slide-menu a").forEach(link => {
-  link.addEventListener("click", closeMenu);
-});
+  // メニュー内リンクを押したら閉じる
+  document.querySelectorAll("#slide-menu a").forEach(link => {
+    link.addEventListener("click", closeMenu);
+  });
+}
 
 // スクロール時の微細グリッチ演出
 (function() {
@@ -67,7 +69,40 @@ document.querySelectorAll("#slide-menu a").forEach(link => {
   }, { passive: true }); // パフォーマンス向上のためpassiveを追加
 })();
 
+// ===============================
+// NAP TIME CONTROL (時間判定 & 時計)
+// ===============================
+(function() {
+  function checkNapTimeAndRefreshClock() {
+    // 1. 常に日本時間（Asia/Tokyo）の現在時刻を取得
+    const jstString = new Date().toLocaleString("en-US", { timeZone: "Asia/Tokyo" });
+    const jstDate = new Date(jstString);
+    const hours = jstDate.getHours();
 
+    // 2. お昼寝判定（JST 9:00 から 16:59 まで）
+    if (hours >= 9 && hours < 17) {
+      document.body.classList.add('is-napping');
+    } else {
+      document.body.classList.remove('is-napping');
+    }
 
+    // 3. 時計の文字列を更新 (JSTのデジタル表記 hh:mm:ss を適用)
+    const clockElement = document.getElementById('jst-clock');
+    if (clockElement) {
+      const timeString = jstDate.toLocaleString("en-US", {
+        timeZone: "Asia/Tokyo",
+        hour12: false,
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      });
+      clockElement.textContent = timeString;
+    }
+  }
 
-
+  // ページ読み込み時に初期化し、その後は1秒（1000ms）ごとに更新処理を実行
+  window.addEventListener('DOMContentLoaded', () => {
+    checkNapTimeAndRefreshClock();
+    setInterval(checkNapTimeAndRefreshClock, 1000);
+  });
+})();
