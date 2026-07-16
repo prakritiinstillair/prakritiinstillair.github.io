@@ -368,7 +368,7 @@ opacity:1;
   opacity: 0.9;
 }
 /* ==========================================================================
-   Nap Time Overlay (お昼寝オーバーレイ用の追加スタイル)
+   Nap Time Overlay (お昼寝オーバーレイ用のスタイル)
    ========================================================================== */
 .nap-overlay {
   position: fixed;
@@ -376,7 +376,7 @@ opacity:1;
   left: 0;
   width: 100%;
   height: 100vh;
-  /* --- 変更ポイント1: 背景色を半透明（黒の85%）にして、下のホームページを透かす --- */
+  /* 背景色を半透明（黒の85%）にして、下のホームページを透かす */
   background-color: rgba(18, 18, 20, 0.85); 
   color: #a0a0a5;
   display: none; /* 通常時は非表示（JSで制御） */
@@ -387,7 +387,7 @@ opacity:1;
   z-index: 10000; /* ハンバーガー等すべての要素の上に被せる */
   overflow: hidden;
   
-  /* --- 変更ポイント2: 下のホームページを少しぼかして、覗き見しているような質感にする --- */
+  /* 下のホームページを少しぼかして、覗き見しているような質感にする */
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px); /* Safari対応 */
 }
@@ -401,8 +401,7 @@ opacity:1;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /* --- 変更ポイント3: 下のホームページと喧嘩しないよう、ロゴ画像自体は少し控えめ（30%程度）に透かす --- */
-  opacity: 0.3; 
+  opacity: 0.3; /* 下のホームページと喧嘩しないよう、ロゴ画像自体は少し控えめに透かす */
   z-index: -1;  /* テキストなどのコンテンツの裏に回り込ませる */
 }
 
@@ -411,16 +410,31 @@ body.is-napping .nap-overlay {
   display: flex;
 }
 
+/* --- コンテンツ全体のコンテナ（高さを画面いっぱいに広げて上下に振り分けます） --- */
 .nap-content {
-  position: relative; /* 背景画像の上に正しく描画させるため */
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-  padding: 1.5rem;
-  max-width: 400px;
+  position: relative;
+  display: block; /* 自由配置にするため block に変更 */
   width: 100%;
+  height: 100%;
+  max-width: 400px;
+  margin: 0 auto;
   box-sizing: border-box;
   z-index: 1; /* 背景より手前に表示 */
+}
+
+/* 【重要】
+  アイコン以外のテキスト情報をロゴ画像より上のエリア（画面の上から15%程度の位置）に
+  ぎゅっとまとめて配置します。
+*/
+.nap-info-group {
+  position: absolute;
+  top: 13%; /* ロゴより上に持っていくための配置調整 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem; /* テキストや時計同士の距離をほどよくコンパクトに */
 }
 
 .status-text {
@@ -428,7 +442,7 @@ body.is-napping .nap-overlay {
   letter-spacing: 0.15em;
   margin: 0;
   color: #d1d1d6;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9); /* 下のコンテンツと重なっても読めるように影を少し強めに */
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
 }
 
 /* 時計のコンテナ枠 */
@@ -475,12 +489,18 @@ body.is-napping .nap-overlay {
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
 }
 
-/* お昼寝時専用のSNSアイコンエリア */
+/* 【重要】
+  SNSアイコンだけを画面の下部（下から15%の位置。元の位置に近い場所）に固定配置します。
+*/
 .nap-social-links {
+  position: absolute;
+  bottom: 15%; /* 画面下からの位置調整 */
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
   gap: 1.8rem;
-  margin-top: 0.5rem;
+  width: 100%;
 }
 
 .nap-social-icon {
@@ -504,8 +524,6 @@ body.is-napping .nap-overlay {
 }
 
 
-
-  
 
 /* ================= RESPONSIVE ================= */
 @media (max-width: 700px) {
