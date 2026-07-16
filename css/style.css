@@ -421,10 +421,9 @@ body.is-napping .nap-overlay {
   z-index: 1; /* 背景より手前に表示 */
 }
 
-/
 .nap-info-group {
   position: absolute;
-  top: 20vh; /* ロゴより上に持っていくための配置調整 */
+  top: 15vh; /* ロゴより上に持っていくための配置調整 */
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
