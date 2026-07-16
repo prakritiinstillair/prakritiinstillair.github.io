@@ -425,7 +425,7 @@ body.is-napping .nap-overlay {
 /
 .nap-info-group {
   position: absolute;
-  top: 13%; /* ロゴより上に持っていくための配置調整 */
+  top: 16vh; /* ロゴより上に持っていくための配置調整 */
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
