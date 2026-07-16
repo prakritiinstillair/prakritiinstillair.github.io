@@ -383,7 +383,6 @@ opacity:1;
   justify-content: center;
   align-items: center;
   text-align: center;
-  font-family: monospace;
   z-index: 10000; /* ハンバーガー等すべての要素の上に被せる */
   overflow: hidden;
   
@@ -425,7 +424,7 @@ body.is-napping .nap-overlay {
 /
 .nap-info-group {
   position: absolute;
-  top: 16vh; /* ロゴより上に持っていくための配置調整 */
+  top: 20vh; /* ロゴより上に持っていくための配置調整 */
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
