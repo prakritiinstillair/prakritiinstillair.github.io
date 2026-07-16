@@ -367,6 +367,117 @@ opacity:1;
   border-radius: 50%;
   opacity: 0.9;
 }
+/* ==========================================================================
+   Nap Time Overlay (お昼寝オーバーレイ用の追加スタイル)
+   ========================================================================== */
+.nap-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #121214; /* 落ち着いたダークグレー */
+  color: #a0a0a5;
+  display: none; /* 通常時は非表示（JSで制御） */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: monospace; /* 統一感のある等幅ローファイフォント */
+  z-index: 10000; /* ハンバーガー等すべての要素の上に被せる */
+}
+
+/* 判定用クラスがbodyに付与された際のみオーバーレイを展開 */
+body.is-napping .nap-overlay {
+  display: flex;
+}
+
+.nap-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding: 1.5rem;
+  max-width: 400px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.status-text {
+  font-size: 1.2rem;
+  letter-spacing: 0.15em;
+  margin: 0;
+  color: #d1d1d6;
+}
+
+/* 時計のコンテナ枠 */
+.clock-container {
+  border: 1px solid #2c2c2e;
+  padding: 1.2rem 2rem;
+  background: #18181b;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.clock-time {
+  font-size: 2rem;
+  color: #f4f4f5;
+  letter-spacing: 0.05em;
+}
+
+.clock-label {
+  font-size: 0.7rem;
+  color: #52525b;
+  display: block;
+  margin-top: 0.3rem;
+  letter-spacing: 0.1em;
+}
+
+/* 営業時間のテキスト */
+.business-hours {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.hours-title {
+  font-size: 0.8rem;
+  color: #71717a;
+  letter-spacing: 0.1em;
+}
+
+.hours-time {
+  font-size: 1.05rem;
+  color: #a1a1aa;
+  letter-spacing: 0.05em;
+}
+
+/* お昼寝時専用のSNSアイコンエリア */
+.nap-social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.8rem;
+  margin-top: 0.5rem;
+}
+
+.nap-social-icon {
+  display: inline-block;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+/* アイコン画像をサイト内の雰囲気に馴染ませるカラーフィルタ */
+.nap-social-icon img {
+  width: 22px;
+  height: 22px;
+  filter: invert(70%) sepia(5%) saturate(80%) hue-rotate(200deg); 
+}
+
+.nap-social-icon:hover {
+  transform: translateY(-2px);
+}
+
+.nap-social-icon:hover img {
+  filter: invert(100%); /* カーソルを当てたときだけそっと白く点灯 */
+}
+
 
 /* ================= RESPONSIVE ================= */
 @media (max-width: 700px) {
