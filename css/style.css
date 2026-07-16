@@ -383,7 +383,7 @@ opacity:1;
   justify-content: center;
   align-items: center;
   text-align: center;
-  font-family: monospace; /* 統一感のある等幅ローファイフォント */
+  font-family: monospace;
   z-index: 10000; /* ハンバーガー等すべての要素の上に被せる */
   overflow: hidden;
   
@@ -422,10 +422,7 @@ body.is-napping .nap-overlay {
   z-index: 1; /* 背景より手前に表示 */
 }
 
-/* 【重要】
-  アイコン以外のテキスト情報をロゴ画像より上のエリア（画面の上から15%程度の位置）に
-  ぎゅっとまとめて配置します。
-*/
+/
 .nap-info-group {
   position: absolute;
   top: 13%; /* ロゴより上に持っていくための配置調整 */
@@ -455,7 +452,7 @@ body.is-napping .nap-overlay {
 }
 
 .clock-time {
-  font-size: 2rem;
+  font-size: 1.2rem;
   color: #f4f4f5;
   letter-spacing: 0.05em;
 }
@@ -476,14 +473,14 @@ body.is-napping .nap-overlay {
 }
 
 .hours-title {
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   color: #a1a1aa;
   letter-spacing: 0.1em;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
 }
 
 .hours-time {
-  font-size: 1.05rem;
+  font-size: 1.45rem;
   color: #e4e4e7;
   letter-spacing: 0.05em;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
@@ -508,11 +505,10 @@ body.is-napping .nap-overlay {
   transition: opacity 0.3s, transform 0.3s;
 }
 
-/* アイコン画像をサイト内の雰囲気に馴染ませるカラーフィルタ */
 .nap-social-icon img {
   width: 22px;
-  height: 22px;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8)) invert(70%) sepia(5%) saturate(80%) hue-rotate(200deg); 
+  height: 22px; 
+  opacity: 0.8;
 }
 
 .nap-social-icon:hover {
@@ -520,7 +516,7 @@ body.is-napping .nap-overlay {
 }
 
 .nap-social-icon:hover img {
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8)) invert(100%); /* ホバー時に白点灯 */
+  opacity: 1;
 }
 
 
