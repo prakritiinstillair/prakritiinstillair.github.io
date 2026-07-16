@@ -400,6 +400,7 @@ opacity:1;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  font-family: monospace;
   opacity: 0.3; /* 下のホームページと喧嘩しないよう、ロゴ画像自体は少し控えめに透かす */
   z-index: -1;  /* テキストなどのコンテンツの裏に回り込ませる */
 }
