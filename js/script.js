@@ -78,13 +78,16 @@ if (menuIcon && closeBtn && menu) {
     const jstString = new Date().toLocaleString("en-US", { timeZone: "Asia/Tokyo" });
     const jstDate = new Date(jstString);
     const hours = jstDate.getHours();
+   // 2. お昼寝判定（JST 7:48 ～ 17:17）
+const minutesNow = hours * 60 + jstDate.getMinutes();
+const napStart = 7 * 60 + 48;   // 7:48
+const napEnd   = 17 * 60 + 17;  // 17:17
 
-    // 2. お昼寝判定（JST 8:00 から 16:59 まで）
-    if (hours >= 8 && hours < 17) {
-      document.body.classList.add('is-napping');
-    } else {
-      document.body.classList.remove('is-napping');
-    }
+if (minutesNow >= napStart && minutesNow < napEnd) {
+  document.body.classList.add('is-napping');
+} else {
+  document.body.classList.remove('is-napping');
+}
 
     // 3. 時計の文字列を更新 (JSTのデジタル表記 hh:mm:ss を適用)
     const clockElement = document.getElementById('jst-clock');
