@@ -387,8 +387,8 @@ opacity:1;
   left: 0;
   width: 100%;
   height: 100vh;
-  /* 背景色を半透明（黒の85%）にして、下のホームページを透かす */
-  background-color: rgba(18, 18, 20, 0.85); 
+  /* 背景色を半透明（黒の35%）にして、下のホームページを透かす */
+  background-color: rgba(18, 18, 20, 0.35); 
   color: #a0a0a5;
   display: none; /* 通常時は非表示（JSで制御） */
   justify-content: center;
@@ -412,7 +412,7 @@ opacity:1;
   background-position: center;
   background-repeat: no-repeat;
   font-family: monospace;
-  opacity: 0.3; /* 下のホームページと喧嘩しないよう、ロゴ画像自体は少し控えめに透かす */
+  opacity: 0.55; /* 下のホームページと喧嘩しないよう、ロゴ画像自体は少し控えめに透かす */
   z-index: -1;  /* テキストなどのコンテンツの裏に回り込ませる */
 }
 
