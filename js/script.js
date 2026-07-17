@@ -79,8 +79,8 @@ if (menuIcon && closeBtn && menu) {
     const jstDate = new Date(jstString);
     const hours = jstDate.getHours();
 
-    // 2. お昼寝判定（JST 9:00 から 16:59 まで）
-    if (hours >= 9 && hours < 17) {
+    // 2. お昼寝判定（JST 8:00 から 16:59 まで）
+    if (hours >= 8 && hours < 17) {
       document.body.classList.add('is-napping');
     } else {
       document.body.classList.remove('is-napping');
