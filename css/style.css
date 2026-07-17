@@ -455,7 +455,7 @@ body.is-napping .nap-overlay {
 /* 時計のコンテナ枠 */
 .clock-container {
   border: 1px solid #2c2c2e;
-  padding: 1.2rem 2rem;
+  padding: 0.8rem 1.6rem;
   background: rgba(24, 24, 27, 0.9); /* 時計の背景は数字が見えやすいように少しだけ濃く */
   display: inline-block;
   margin: 0 auto;
