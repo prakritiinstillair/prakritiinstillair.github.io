@@ -78,16 +78,17 @@ if (menuIcon && closeBtn && menu) {
     const jstString = new Date().toLocaleString("en-US", { timeZone: "Asia/Tokyo" });
     const jstDate = new Date(jstString);
     const hours = jstDate.getHours();
-   // 2. お昼寝判定（JST 7:48 ～ 17:17）
-const minutesNow = hours * 60 + jstDate.getMinutes();
-const napStart = 7 * 60 + 48;   // 7:48
-const napEnd   = 17 * 60 + 17;  // 17:17
+    
+    // 2. お昼寝判定（JST 7:48 ～ 17:17）
+    const minutesNow = hours * 60 + jstDate.getMinutes();
+    const napStart = 7 * 60 + 48;   // 7:48
+    const napEnd   = 17 * 60 + 17;  // 17:17
 
-if (minutesNow >= napStart && minutesNow < napEnd) {
-  document.body.classList.add('is-napping');
-} else {
-  document.body.classList.remove('is-napping');
-}
+    if (minutesNow >= napStart && minutesNow < napEnd) {
+      document.body.classList.add('is-napping');
+    } else {
+      document.body.classList.remove('is-napping');
+    }
 
     // 3. 時計の文字列を更新 (JSTのデジタル表記 hh:mm:ss を適用)
     const clockElement = document.getElementById('jst-clock');
@@ -110,6 +111,12 @@ if (minutesNow >= napStart && minutesNow < napEnd) {
   });
 })();
 
+// ===============================
+// AMBIENT AUDIO CONTROL
+// ===============================
+// 外部からも音楽を停止できるように、再生停止関数のみスコープを広げて宣言します
+let stopNapMusic = () => {};
+
 document.addEventListener('DOMContentLoaded', () => {
     const audio = document.getElementById('nap-ambient-sound');
     const audioToggle = document.getElementById('nap-audio-toggle');
@@ -122,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // もしすでに音楽が流れている場合は、画面クリックでは何もしない
         if (!audio.paused) return;
 
-        // 【重要】ただし、右上の「♪マーク（一時停止ボタン）」自体を触った場合は、
+        // 右上の「♪マーク（一時停止ボタン）」自体を触った場合は、
         // 以下の「♪ボタン専用の処理」に任せるため、ここでは無視する
         if (event.target.closest('#nap-audio-toggle')) return;
 
@@ -157,8 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 3. お昼寝時間が終わってオーバーレイが消える際、音楽も一緒に止める処理 ---
-    // （※ 既存のお昼寝判定ロジックでお昼寝が終わる瞬間に、この関数を呼び出すようにしてください）
-    function stopNapMusic() {
+    stopNapMusic = function() {
         if (audio && !audio.paused) {
             audio.pause();
             audio.currentTime = 0; // 曲の最初に戻す
@@ -167,15 +173,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// ===============================
+// CAMEL CARAVAN CONTROL
+// ===============================
 document.addEventListener('DOMContentLoaded', () => {
     const caravan = document.getElementById('camel-caravan');
     const body = document.body;
     let camelTimer = null;
+    let caravanRunning = false; // ★多重生成を防ぐフラグ
 
     // ラクダを1匹生成して歩かせる関数
     function spawnCamel() {
-        // お昼寝中（bodyにis-nappingクラスがある時）だけラクダを生成する
-        if (!body.classList.contains('is-napping') || !caravan) return;
+        // お昼寝中（bodyにis-nappingクラスがある時）かつ、キャラバン稼働中のみラクダを生成する
+        if (!body.classList.contains('is-napping') || !caravan || !caravanRunning) return;
 
         const camel = document.createElement('img');
         camel.src = 'images/camel.svg';
@@ -200,14 +210,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         caravan.appendChild(camel);
 
-        // 次のラクダが出現するまでの時間をランダム（例：6秒〜15秒の間）に決めてタイマーを再設定
-        const nextSpawnTime = Math.random() * 90000 + 60000; 
+        // 次のラクダが出現するまでの時間をランダムに決めてタイマーを再設定
+        // （30秒〜90秒の間隔に変更し、大渋滞を防止しています）
+        const nextSpawnTime = Math.random() * 60000 + 30000; 
         camelTimer = setTimeout(spawnCamel, nextSpawnTime);
     }
 
     // お昼寝画面が始まったらキャラバンを始動させる設定
-    // （※もしすでに「お昼寝開始を検知する関数」が既存であれば、その中で呼び出してください）
     function startCaravan() {
+        if (caravanRunning) return; // ★すでに走っていれば何もしない（重複ガード）
+
+        caravanRunning = true;
+
         if (camelTimer) clearTimeout(camelTimer);
         // 最初の1匹目をすぐに出現させる
         spawnCamel();
@@ -215,11 +229,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // お昼寝画面が終了した時にタイマーを止める関数
     function stopCaravan() {
+        caravanRunning = false; // ★稼働フラグを倒す
+
         if (camelTimer) clearTimeout(camelTimer);
-        if (caravan) caravan.innerHTML = ''; // 画面に残っているラクダを綺麗に消す
+        camelTimer = null;
+
+        if (caravan) caravan.innerHTML = ''; // ★画面に残っているラクダを綺麗に全消去
     }
 
-    // テスト・実装用：body のクラス変化を監視して自動でラクダのON/OFFを切り替える場合
+    // body のクラス変化（お昼寝状態のON/OFF）を監視して自動でラクダ＆音楽を切り替える
     const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
             if (mutation.attributeName === 'class') {
@@ -227,10 +245,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     startCaravan();
                 } else {
                     stopCaravan();
+                    stopNapMusic(); // ★お昼寝が終わったら音楽も連動して自動停止
                 }
             }
         });
     });
     observer.observe(body, { attributes: true });
 });
-
