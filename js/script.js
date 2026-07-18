@@ -174,78 +174,19 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ===============================
-// CAMEL CARAVAN CONTROL
+// CAMEL CARAVAN CONTROL (表示切り替えのみ)
 // ===============================
 document.addEventListener('DOMContentLoaded', () => {
-    const caravan = document.getElementById('camel-caravan');
     const body = document.body;
-    let camelTimer = null;
-    let caravanRunning = false; // ★多重生成を防ぐフラグ
 
-    // ラクダを1匹生成して歩かせる関数
-    function spawnCamel() {
-        // お昼寝中（bodyにis-nappingクラスがある時）かつ、キャラバン稼働中のみラクダを生成する
-        if (!body.classList.contains('is-napping') || !caravan || !caravanRunning) return;
-
-        const camel = document.createElement('img');
-        camel.src = 'images/camel.svg';
-        camel.classList.add('walking-camel');
-        camel.alt = 'camel';
-
-        /* 
-           【ムラを作る演出】
-           ラクダごとの個性を出すため、歩く速度（アニメーション秒数）と
-           上下のわずかなズレをランダムに決定します。
-        */
-        const randomSpeed = Math.random() * 8 + 20; // 20秒〜28秒の間でランダムに歩く速度が変わる
-        const randomTop = Math.random() * 8;        // 上下に最大8pxのムラ（同じ直線上を綺麗に並ばせない）
-        
-        camel.style.animationDuration = `${randomSpeed}s`;
-        camel.style.top = `${randomTop}px`;
-
-        // アニメーション（左端まで歩ききった）が終わったら自動でHTMLから消去する
-        camel.addEventListener('animationend', () => {
-            camel.remove();
-        });
-
-        caravan.appendChild(camel);
-
-        // 次のラクダが出現するまでの時間をランダムに決めてタイマーを再設定
-        // （30秒〜90秒の間隔に変更し、大渋滞を防止しています）
-        const nextSpawnTime = Math.random() * 60000 + 30000; 
-        camelTimer = setTimeout(spawnCamel, nextSpawnTime);
-    }
-
-    // お昼寝画面が始まったらキャラバンを始動させる設定
-    function startCaravan() {
-        if (caravanRunning) return; // ★すでに走っていれば何もしない（重複ガード）
-
-        caravanRunning = true;
-
-        if (camelTimer) clearTimeout(camelTimer);
-        // 最初の1匹目をすぐに出現させる
-        spawnCamel();
-    }
-
-    // お昼寝画面が終了した時にタイマーを止める関数
-    function stopCaravan() {
-        caravanRunning = false; // ★稼働フラグを倒す
-
-        if (camelTimer) clearTimeout(camelTimer);
-        camelTimer = null;
-
-        if (caravan) caravan.innerHTML = ''; // ★画面に残っているラクダを綺麗に全消去
-    }
-
-    // body のクラス変化（お昼寝状態のON/OFF）を監視して自動でラクダ＆音楽を切り替える
+    // body のクラス変化（お昼寝状態のON/OFF）を監視して、音楽の自動停止だけを制御
     const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
             if (mutation.attributeName === 'class') {
-                if (body.classList.contains('is-napping')) {
-                    startCaravan();
-                } else {
-                    stopCaravan();
-                    stopNapMusic(); // ★お昼寝が終わったら音楽も連動して自動停止
+                if (!body.classList.contains('is-napping')) {
+                    // お昼寝が終わったら音楽だけを止める
+                    // （ラクダはCSS側でお昼寝画面ごと非表示になるので何もしなくてOK）
+                    stopNapMusic(); 
                 }
             }
         });
