@@ -166,3 +166,71 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const caravan = document.getElementById('camel-caravan');
+    const body = document.body;
+    let camelTimer = null;
+
+    // ラクダを1匹生成して歩かせる関数
+    function spawnCamel() {
+        // お昼寝中（bodyにis-nappingクラスがある時）だけラクダを生成する
+        if (!body.classList.contains('is-napping') || !caravan) return;
+
+        const camel = document.createElement('img');
+        camel.src = 'images/camel.svg';
+        camel.classList.add('walking-camel');
+        camel.alt = 'camel';
+
+        /* 
+           【ムラを作る演出】
+           ラクダごとの個性を出すため、歩く速度（アニメーション秒数）と
+           上下のわずかなズレをランダムに決定します。
+        */
+        const randomSpeed = Math.random() * 8 + 20; // 20秒〜28秒の間でランダムに歩く速度が変わる
+        const randomTop = Math.random() * 8;        // 上下に最大8pxのムラ（同じ直線上を綺麗に並ばせない）
+        
+        camel.style.animationDuration = `${randomSpeed}s`;
+        camel.style.top = `${randomTop}px`;
+
+        // アニメーション（左端まで歩ききった）が終わったら自動でHTMLから消去する
+        camel.addEventListener('animationend', () => {
+            camel.remove();
+        });
+
+        caravan.appendChild(camel);
+
+        // 次のラクダが出現するまでの時間をランダム（例：6秒〜15秒の間）に決めてタイマーを再設定
+        const nextSpawnTime = Math.random() * 9000 + 6000; 
+        camelTimer = setTimeout(spawnCamel, nextSpawnTime);
+    }
+
+    // お昼寝画面が始まったらキャラバンを始動させる設定
+    // （※もしすでに「お昼寝開始を検知する関数」が既存であれば、その中で呼び出してください）
+    function startCaravan() {
+        if (camelTimer) clearTimeout(camelTimer);
+        // 最初の1匹目をすぐに出現させる
+        spawnCamel();
+    }
+
+    // お昼寝画面が終了した時にタイマーを止める関数
+    function stopCaravan() {
+        if (camelTimer) clearTimeout(camelTimer);
+        if (caravan) caravan.innerHTML = ''; // 画面に残っているラクダを綺麗に消す
+    }
+
+    // テスト・実装用：body のクラス変化を監視して自動でラクダのON/OFFを切り替える場合
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.attributeName === 'class') {
+                if (body.classList.contains('is-napping')) {
+                    startCaravan();
+                } else {
+                    stopCaravan();
+                }
+            }
+        });
+    });
+    observer.observe(body, { attributes: true });
+});
+
