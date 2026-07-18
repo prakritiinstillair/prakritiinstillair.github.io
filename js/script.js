@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
         caravan.appendChild(camel);
 
         // 次のラクダが出現するまでの時間をランダム（例：6秒〜15秒の間）に決めてタイマーを再設定
-        const nextSpawnTime = Math.random() * 9000 + 6000; 
+        const nextSpawnTime = Math.random() * 90000 + 60000; 
         camelTimer = setTimeout(spawnCamel, nextSpawnTime);
     }
 
