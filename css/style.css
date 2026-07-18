@@ -572,38 +572,48 @@ body.is-napping .nap-overlay {
 }
 
 /* ==========================================================================
-   Camel Caravan (確定版：確実に右から左へ横切るカクカク・ラクダ)
+   Camel Marquee (昔ながらのmarquee風カクカク無限ループ)
    ========================================================================== */
 .camel-caravan {
-  position: fixed;   
-  bottom: 24%;       /* SNSアイコンの少し上 */
-  left: 0;
-  width: 100%;       /* 画面幅いっぱいの通り道 */
-  height: 40px;
-  overflow: hidden;  
-  pointer-events: none;
-  z-index: 10001;    
-}
-
-/* ラクダ1匹ごとのスタイル */
-.walking-camel {
   position: absolute;
-  top: 0;
-  left: 100%;
-  height: 32px;
-  opacity: 0.35;
-
-  animation: marquee-camel 25s steps(45) forwards;
+  bottom: 24%;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  overflow: hidden;
+  pointer-events: none;
+  display: flex; /* 2つのトラックを横並びにする */
 }
 
-@keyframes marquee-camel {
-  from {
+/* ラクダの列全体の動き */
+.camel-track {
+  display: flex;
+  justify-content: space-around; /* ラクダ同士の間隔を均等に */
+  width: 100%;                  /* 画面1枚分の幅 */
+  flex-shrink: 0;
+  
+  /* 右から左へ画面1枚分スライドするアニメーション */
+  /* 30秒かけて、60段階のカクカク（コマ送り）で無限ループ */
+  animation: marquee-left 30s steps(60) infinite;
+}
+
+/* ラクダ1匹ずつの見た目 */
+.camel-track img {
+  height: 32px;
+  width: auto;
+  opacity: 0.35; /* うっすら半透明のテクスチャ感 */
+}
+
+/* 2つの列がぴったり重なりながら左へ進むことで、無限ループを作る */
+@keyframes marquee-left {
+  0% {
     transform: translateX(0);
   }
-  to {
-    transform: translateX(calc(-100vw - 60px));
+  100% {
+    transform: translateX(-100%);
   }
 }
+
 
 
 
