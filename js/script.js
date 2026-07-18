@@ -79,10 +79,10 @@ if (menuIcon && closeBtn && menu) {
     const jstDate = new Date(jstString);
     const hours = jstDate.getHours();
     
-    // 2. お昼寝判定（JST 7:48 ～ 17:17）
+    // 2. お昼寝判定（JST 7:48 ～ 17:27）
     const minutesNow = hours * 60 + jstDate.getMinutes();
     const napStart = 7 * 60 + 48;   // 7:48
-    const napEnd   = 17 * 60 + 17;  // 17:17
+    const napEnd   = 17 * 60 + 27;  // 17:27
 
     if (minutesNow >= napStart && minutesNow < napEnd) {
       document.body.classList.add('is-napping');
