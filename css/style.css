@@ -570,39 +570,44 @@ body.is-napping .nap-overlay {
     transform: scale(1.1);
   }
 }
+
 /* ==========================================================================
-   Camel Caravan (カクカク動くラクダのキャラバン)
+   Camel Caravan (修正版：完全に画面を横切るカクカク・ラクダ)
    ========================================================================== */
 .camel-caravan {
-  position: absolute;
-  bottom: 24%;       /* SNSアイコン（bottom: 15%）の少し上になるように調整 */
+  position: fixed;   /* absolute から fixed に変更し、画面全体を基準にします */
+  bottom: 24%;       /* SNSアイコンの少し上 */
   left: 0;
-  width: 100%;
-  height: 40px;      /* ラクダの高さに合わせる */
-  overflow: hidden;  /* 画面外からはみ出たラクダを隠す */
-  pointer-events: none; /* タップの邪魔をしない */
+  width: 100vw;      /* 画面の横幅いっぱいに通り道を確保 */
+  height: 40px;
+  overflow: hidden;  /* 画面外にはみ出たラクダを隠す */
+  pointer-events: none;
+  z-index: 10001;    /* 確実に手前に表示 */
 }
 
-/* ラクダ1匹ごとの共通スタイル */
+/* ラクダ1匹ごとのスタイル */
 .walking-camel {
   position: absolute;
   top: 0;
-  height: 32px;      /* ラクダの表示サイズ（お好みで調整してください） */
+  left: 0;           /* 左端を基準にして、transform で動かします */
+  height: 32px;      /* ラクダのサイズ */
   width: auto;
-  opacity: 0.35;     /* 画面に馴染むよう、うっすら半透明に（hauntology感） */
+  opacity: 0.35;     /* ほんのり半透明 */
   
-  /* 右から左へ移動するアニメーション */
-  /* steps(40) を指定することで、移動が40段階のコマ送り（カクカク）になります */
-  animation: walk-left 25s steps(45) linear forwards;
+  /* 右から左へ移動するアニメーション（45段階のコマ送り） */
+  animation: walk-left-fixed 25s steps(45) linear forwards;
 }
 
-/* 右から左へ突き抜けるアニメーション */
-@keyframes walk-left {
+/* 
+   【修正】画面の右外（100vw + α）から、左外（-60px）まで
+   確実に横切らせるためのアニメーション設定
+*/
+@keyframes walk-left-fixed {
   0% {
-    right: -60px;    /* 画面の右外からスタート */
+    transform: translateX(100vw); /* 画面の右端の外側からスタート */
   }
   100% {
-    right: 100%;     /* 画面の左外まで歩ききる */
+    transform: translateX(-60px);  /* 画面の左端の外側まで歩ききる */
   }
 }
 
