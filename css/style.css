@@ -528,6 +528,48 @@ body.is-napping .nap-overlay {
 .nap-social-icon:hover img {
   opacity: 1;
 }
+/* ==========================================================================
+   Nap Time Ambient Audio Button (お昼寝中の音楽ボタン)
+   ========================================================================== */
+.nap-audio-toggle {
+  position: absolute;
+  top: 25px;       /* 画面上端からの距離 */
+  right: 25px;     /* 画面右端からの距離（ここを left: 25px にすれば左上になります） */
+  background: none;
+  border: none;
+  color: #71717a;  /* 普段は控えめなグレー */
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 10005;  /* オーバーレイのさらに上に配置 */
+  padding: 10px;
+  transition: color 0.3s, transform 0.3s;
+  outline: none;
+  -webkit-tap-highlight-color: transparent; /* スマホのタップ時青枠を消す */
+}
+
+/* ホバー時やアクティブ時の光る演出 */
+.nap-audio-toggle:hover {
+  color: #f4f4f5;
+  transform: scale(1.1);
+}
+
+/* 音楽が【再生中】の時のスタイル（緑っぽく、あるいは優しく明滅させる） */
+.nap-audio-toggle.is-playing {
+  color: #a7f3d0; /* ほんのり淡いエメラルドグリーン */
+  animation: pulse-music 2s infinite ease-in-out;
+}
+
+/* 音楽再生中のゆったりとした明滅アニメーション */
+@keyframes pulse-music {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
 
 
 
