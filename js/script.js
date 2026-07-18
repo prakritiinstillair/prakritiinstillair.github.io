@@ -109,3 +109,43 @@ if (minutesNow >= napStart && minutesNow < napEnd) {
     setInterval(checkNapTimeAndRefreshClock, 1000);
   });
 })();
+
+document.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById('nap-ambient-sound');
+    const audioToggle = document.getElementById('nap-audio-toggle');
+    
+    if (audio && audioToggle) {
+        audioToggle.addEventListener('click', () => {
+            if (audio.paused) {
+                // 音が止まっていれば、再生してボタンをアクティブにする
+                audio.play()
+                    .then(() => {
+                        audioToggle.classList.add('is-playing');
+                    })
+                    .catch(err => {
+                        console.log("Audio play blocked or failed: ", err);
+                    });
+            } else {
+                // 音が流れていれば、一時停止してボタンを元に戻す
+                audio.pause();
+                audioToggle.classList.remove('is-playing');
+            }
+        });
+    }
+
+    // 【重要】お昼寝時間が終わってオーバーレイが消える際、音楽も一緒に止めるための処理
+    // ※ 既存のお昼寝判定ロジックの中で「お昼寝終了時（is-nappingクラスを外す瞬間）」に以下を仕込みます
+    function stopNapMusic() {
+        if (audio && !audio.paused) {
+            audio.pause();
+            audio.currentTime = 0; // 曲の最初に戻す
+            if (audioToggle) {
+                audioToggle.classList.remove('is-playing');
+            }
+        }
+    }
+
+    // 例えば、お昼寝時間を1分毎に監視する既存のタイマー処理等がある場合：
+    // お昼寝時間外になったタイミングで `stopNapMusic();` を呼び出すようにしてください。
+});
+
