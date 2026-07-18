@@ -600,13 +600,13 @@ body.is-napping .nap-overlay {
   height: 32px;
   width: auto;
   opacity: 0.35;
-  margin-right: 32px; /* 基本の間隔 */
+  margin-right: 40px; /* 基本の間隔 */
 }
 
 /* 【個別のムラ】 */
 /* 2番目のラクダの右側だけ、さらに広く隙間を空ける */
 .camel-track img:nth-child(2) {
-  margin-right: 80px; 
+  margin-right: 90px; 
 }
 
 /* 4番目のラクダの右側は、少し詰める */
