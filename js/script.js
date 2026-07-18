@@ -113,39 +113,56 @@ if (minutesNow >= napStart && minutesNow < napEnd) {
 document.addEventListener('DOMContentLoaded', () => {
     const audio = document.getElementById('nap-ambient-sound');
     const audioToggle = document.getElementById('nap-audio-toggle');
+    const napOverlay = document.getElementById('nap-overlay');
     
-    if (audio && audioToggle) {
-        audioToggle.addEventListener('click', () => {
-            if (audio.paused) {
-                // 音が止まっていれば、再生してボタンをアクティブにする
-                audio.play()
-                    .then(() => {
-                        audioToggle.classList.add('is-playing');
-                    })
-                    .catch(err => {
-                        console.log("Audio play blocked or failed: ", err);
-                    });
-            } else {
-                // 音が流れていれば、一時停止してボタンを元に戻す
-                audio.pause();
-                audioToggle.classList.remove('is-playing');
-            }
-        });
+    if (!audio || !audioToggle || !napOverlay) return;
+
+    // --- 1. 画面のどこを触っても再生をスタートする処理 ---
+    napOverlay.addEventListener('click', (event) => {
+        // もしすでに音楽が流れている場合は、画面クリックでは何もしない
+        if (!audio.paused) return;
+
+        // 【重要】ただし、右上の「♪マーク（一時停止ボタン）」自体を触った場合は、
+        // 以下の「♪ボタン専用の処理」に任せるため、ここでは無視する
+        if (event.target.closest('#nap-audio-toggle')) return;
+
+        // 画面のどこかが触られたら、音楽を再生
+        playAmbient();
+    });
+
+    // --- 2. 一時停止は ♪ ボタンだけで行う処理 ---
+    audioToggle.addEventListener('click', (event) => {
+        // 画面全体のクリックイベントに連鎖（伝播）して、すぐにまた再生されないようにガード
+        event.stopPropagation();
+
+        if (!audio.paused) {
+            // 音が流れていれば、一時停止してボタンの明滅を消す
+            audio.pause();
+            audioToggle.classList.remove('is-playing');
+        } else {
+            // 万が一、止まっている時に ♪ ボタンを押した場合も再生できるようにしておく
+            playAmbient();
+        }
+    });
+
+    // 再生処理をまとめた共通関数
+    function playAmbient() {
+        audio.play()
+            .then(() => {
+                audioToggle.classList.add('is-playing');
+            })
+            .catch(err => {
+                console.log("Audio play blocked or failed: ", err);
+            });
     }
 
-    // 【重要】お昼寝時間が終わってオーバーレイが消える際、音楽も一緒に止めるための処理
-    // ※ 既存のお昼寝判定ロジックの中で「お昼寝終了時（is-nappingクラスを外す瞬間）」に以下を仕込みます
+    // --- 3. お昼寝時間が終わってオーバーレイが消える際、音楽も一緒に止める処理 ---
+    // （※ 既存のお昼寝判定ロジックでお昼寝が終わる瞬間に、この関数を呼び出すようにしてください）
     function stopNapMusic() {
         if (audio && !audio.paused) {
             audio.pause();
             audio.currentTime = 0; // 曲の最初に戻す
-            if (audioToggle) {
-                audioToggle.classList.remove('is-playing');
-            }
+            audioToggle.classList.remove('is-playing');
         }
     }
-
-    // 例えば、お昼寝時間を1分毎に監視する既存のタイマー処理等がある場合：
-    // お昼寝時間外になったタイミングで `stopNapMusic();` を呼び出すようにしてください。
 });
-
