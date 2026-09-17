@@ -168,10 +168,10 @@ function spawnSingleLyric() {
 // ==========================================
 // 5. タイプライター表示
 // ==========================================
+// 1文字ずつパラパラ表示するタイピング処理
 function typeWriterEffect(element, text, targetOpacity) {
   let index = 0;
 
-  // 3. タイプ速度をゆっくりに設定（旧: 70ms → 新: 140ms で約半分の遅さに）
   const timer = setInterval(() => {
     element.textContent += text.charAt(index);
     index++;
@@ -179,13 +179,18 @@ function typeWriterEffect(element, text, targetOpacity) {
     if (index >= text.length) {
       clearInterval(timer);
       
-      // ★追加：タイピング完了時の処理
-      // クラスを外してピンクから薄い透過状態（CSS側で制御）へ変化させる
-      element.classList.remove('typing');
-      element.style.opacity = targetOpacity;
+      // ★ここを変更！タイピング完了後、少し時間を置いてから薄くする
+      const WAIT_TIME = 1000; // 打ち終わってからピンクを保持する時間（1.0秒）
+
+      setTimeout(() => {
+        element.classList.remove('typing');
+        element.style.opacity = targetOpacity;
+      }, WAIT_TIME);
+
     }
-  }, 140); // ★ミリ秒数を大きくするとより遅くなります
+  }, 140); // 1文字あたりのタイピング速度
 }
+
 
 // ==========================================
 // 6. マスコットキャラ登場時などに呼ぶ
