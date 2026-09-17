@@ -391,7 +391,7 @@ opacity:1;
   pointer-events: auto;
   user-select: none;
   /* 透過度や色の変化を滑らかにする */
-  transition: opacity 0.8s ease, color 0.8s ease, text-shadow 0.3s ease;
+  transition: opacity 1.2s ease, color 1.2s ease, text-shadow 1.2s ease;
 }
 
 /* 2. タイピング中のスタイル（ピンク色で鮮明に表示） */
