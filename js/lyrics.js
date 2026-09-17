@@ -119,28 +119,40 @@ function startSpawningLyrics() {
 // ==========================================
 // 4. 1つの歌詞要素を作成
 // ==========================================
-
 function spawnSingleLyric() {
   const currentCount = document.querySelectorAll('.floating-lyric').length;
   if (currentCount >= MAX_LYRICS) return;
 
-  // 配列からランダムに1つのフレーズを選択
   const data = extractedLyrics[Math.floor(Math.random() * extractedLyrics.length)];
 
-  // リンク付きの要素（<a>タグ）を作成
   const a = document.createElement('a');
-  a.className = 'floating-lyric typing'; // 初期はタイピング中クラスを付与
+  a.className = 'floating-lyric typing';
   a.href = data.url;
 
-  // 1. ランダムな位置・角度・フォントサイズを設定
-  const topPos = Math.floor(Math.random() * 55) + 20; // 20%〜75%の範囲
-  const leftPos = Math.floor(Math.random() * 55) + 20;
-  const rotateDeg = (Math.random() * 6 - 3).toFixed(1); // -3度〜3度の傾き
-  
-  // ★追加：フォントサイズを 0.75rem 〜 1.15rem の間でランダム指定
-  const fontSizeVal = (Math.random() * 0.4 + 0.75).toFixed(2);
+  // --- 位置の決定（前回と被らないように計算） ---
+  let topPos, leftPos;
+  let distance = 0;
+  let attempts = 0;
 
-  // ★追加：タイプ完了後の目標透過度（0.10 〜 0.25）
+  // 前回の位置から少なくとも 15% 以上離れた位置が出るまで最大5回リトライ
+  do {
+    topPos = Math.floor(Math.random() * 55) + 20;  // 20% 〜 75%
+    leftPos = Math.floor(Math.random() * 55) + 10; // 10% 〜 65%（左寄りに調整）
+
+    // 直前の位置との直線距離を計算
+    const diffTop = topPos - lastPos.top;
+    const diffLeft = leftPos - lastPos.left;
+    distance = Math.sqrt(diffTop * diffTop + diffLeft * diffLeft);
+
+    attempts++;
+  } while (distance < 15 && attempts < 5); // 距離15%未満ならやり直し（無限ループ防止で最大5回）
+
+  // 今回の位置を記録
+  lastPos = { top: topPos, left: leftPos };
+
+  // --- その他のパラメータ設定 ---
+  const rotateDeg = (Math.random() * 6 - 3).toFixed(1);
+  const fontSizeVal = (Math.random() * 0.4 + 0.75).toFixed(2);
   const targetOpacity = (Math.random() * 0.15 + 0.10).toFixed(2);
 
   a.style.top = `${topPos}%`;
