@@ -43,7 +43,6 @@ if (menuIcon && closeBtn && menu) {
     }, 150);
   }, { passive: true });
 })();
-
 // ===============================
 // MASCOT CONTROL
 // ===============================
@@ -54,20 +53,34 @@ if (menuIcon && closeBtn && menu) {
   if (!mascot) return; 
 
   let mascotTimeout;
+  let lyricClearTimeout = null; // 歌詞消去用のタイマー
 
   window.addEventListener('scroll', () => {
-    // スクロールが始まったら出現＆アニメ開始クラスを付与
-    mascot.classList.add('is-moving');
+    // 1. スクロールが始まったら出現＆アニメ開始クラスを付与
+    if (!mascot.classList.contains('is-moving')) {
+      mascot.classList.add('is-moving');
 
-    // スクロール中の間はタイマーをクリアし続ける
+      // マスコットが登場して1秒（1000ms）経過したら歌詞を消去
+      lyricClearTimeout = setTimeout(() => {
+        if (typeof clearAllLyrics === 'function') {
+          clearAllLyrics();
+        }
+      }, 1000);
+    }
+
+    // 2. スクロール中の間はマスコット退場タイマーをクリアし続ける
     clearTimeout(mascotTimeout);
 
-    // スクロールが止まって200ms後に引っ込める
+    // 3. スクロールが完全に止まって200ms後にマスコットを引っ込める
     mascotTimeout = setTimeout(() => {
       mascot.classList.remove('is-moving');
+      
+      // マスコットが引っ込んだら消去タイマーもリセット
+      clearTimeout(lyricClearTimeout);
     }, 200); 
-  }, { passive: true }); // パフォーマンス向上のためpassiveを追加
+  }, { passive: true });
 })();
+
 
 // ===============================
 // NAP TIME CONTROL (時間判定 & 時計)
