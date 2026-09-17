@@ -383,7 +383,7 @@ opacity:1;
   position: fixed;
   z-index: 100;
   color: #e0e0e0; /* タイプ完了後の基本文字色 */
-  font-family: monospace, serif;
+  font-family: "Yu Mincho", "游明朝", "Hiragino Mincho ProN", "MS PMincho", serif;
   line-height: 1.5;
   white-space: pre-wrap;
   text-decoration: none;
@@ -396,7 +396,7 @@ opacity:1;
 
 /* 2. タイピング中のスタイル（ピンク色で鮮明に表示） */
 .floating-lyric.typing {
-  color: #ff79c6; /* ネオン調のピンク（好みで #ffb3d9 や #ff6699 ） */
+  color: #ff79c6; /* ネオン調のピンク */
   opacity: 0.95 !important;
   text-shadow: 0 0 6px rgba(255, 121, 198, 0.4); /* うっすら発光感 */
 }
