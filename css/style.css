@@ -378,6 +378,35 @@ opacity:1;
     transform: rotate(360deg);
   }
 }
+
+/* 動的生成される歌詞スタイル */
+.floating-lyric {
+  position: fixed;
+  z-index: 100;
+  color: #e0e0e0;
+  font-family: monospace, serif; /* 世界観に合わせて調整 */
+  font-size: 0.85rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  text-decoration: none;
+  cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
+  transition: opacity 0.4s ease, transform 0.3s ease;
+}
+
+/* ホバー時にうっすらからハッキリ見せる */
+.floating-lyric:hover {
+  opacity: 0.9 !important;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
+
+/* マスコット登場時のフェードアウト用 */
+.lyric-fade-out {
+  opacity: 0 !important;
+  transition: opacity 0.8s ease;
+}
+
 /* ==========================================================================
    Nap Time Overlay (お昼寝オーバーレイ用のスタイル)
    ========================================================================== */
