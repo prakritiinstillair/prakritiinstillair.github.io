@@ -60,12 +60,12 @@ if (menuIcon && closeBtn && menu) {
     if (!mascot.classList.contains('is-moving')) {
       mascot.classList.add('is-moving');
 
-      // マスコットが登場して1秒（1000ms）経過したら歌詞を消去
+      // マスコットが登場して0.8秒（800ms）経過したら歌詞を消去
       lyricClearTimeout = setTimeout(() => {
         if (typeof clearAllLyrics === 'function') {
           clearAllLyrics();
         }
-      }, 1000);
+      }, 800);
     }
 
     // 2. スクロール中の間はマスコット退場タイマーをクリアし続ける
