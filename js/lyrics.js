@@ -2,9 +2,12 @@
 // 1. トラックページの相対パス一覧
 // ==========================================
 const trackUrls = [
+  "tracks/fireflower.html",
   "tracks/aromajewel.html",
   "tracks/senjoukousuitai.html",
-  "tracks/friendsitalian.html"
+  "tracks/friendsitalian.html",
+  "tracks/lightscameraaction.html",
+  "tracks/rojoukansoku.html"
   // 新曲（アルバム等）を追加した場合はここにパスを追記するだけでOK
 ];
 
