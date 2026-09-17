@@ -378,30 +378,37 @@ opacity:1;
     transform: rotate(360deg);
   }
 }
-
-/* 動的生成される歌詞スタイル */
+/* 放置時に画面へ生成される歌詞 */
 .floating-lyric {
   position: fixed;
   z-index: 100;
-  color: #e0e0e0;
-  font-family: monospace, serif; /* 世界観に合わせて調整 */
-  font-size: 0.85rem;
+  color: #e0e0e0; /* タイプ完了後の基本文字色 */
+  font-family: monospace, serif;
   line-height: 1.5;
   white-space: pre-wrap;
   text-decoration: none;
   cursor: pointer;
   pointer-events: auto;
   user-select: none;
-  transition: opacity 0.4s ease, transform 0.3s ease;
+  /* 透過度や色の変化を滑らかにする */
+  transition: opacity 0.8s ease, color 0.8s ease, text-shadow 0.3s ease;
 }
 
-/* ホバー時にうっすらからハッキリ見せる */
+/* 2. タイピング中のスタイル（ピンク色で鮮明に表示） */
+.floating-lyric.typing {
+  color: #ff79c6; /* ネオン調のピンク（好みで #ffb3d9 や #ff6699 ） */
+  opacity: 0.95 !important;
+  text-shadow: 0 0 6px rgba(255, 121, 198, 0.4); /* うっすら発光感 */
+}
+
+/* マウスを重ねた時はハッキリピンクで見せる */
 .floating-lyric:hover {
-  opacity: 0.9 !important;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+  color: #ff79c6 !important;
+  opacity: 0.95 !important;
+  text-shadow: 0 0 8px rgba(255, 121, 198, 0.6);
 }
 
-/* マスコット登場時のフェードアウト用 */
+/* マスコット登場時のフェードアウト */
 .lyric-fade-out {
   opacity: 0 !important;
   transition: opacity 0.8s ease;
