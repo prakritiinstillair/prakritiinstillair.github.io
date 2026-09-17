@@ -88,8 +88,8 @@ loadAllLyrics();
 let idleTimer = null;
 let generateInterval = null;
 
-const IDLE_TIME = 4000;    // 放置と判定する時間（ミリ秒）
-const SPAWN_SPEED = 2000;  // 歌詞を新しく生み出す間隔（ミリ秒）
+const IDLE_TIME = 3000;    // 放置と判定する時間（ミリ秒）
+const SPAWN_SPEED = 5000;  // 歌詞を新しく生み出す間隔（ミリ秒）
 const MAX_LYRICS = 25;     // 画面上に留める歌詞の最大数
 
 
