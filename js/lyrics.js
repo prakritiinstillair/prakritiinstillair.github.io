@@ -111,98 +111,64 @@ function startSpawningLyrics() {
     SPAWN_SPEED
   );
 }
-
-
 // ==========================================
 // 4. 1つの歌詞要素を作成
 // ==========================================
+
 function spawnSingleLyric() {
-
-  const currentCount =
-    document.querySelectorAll('.floating-lyric').length;
-
+  const currentCount = document.querySelectorAll('.floating-lyric').length;
   if (currentCount >= MAX_LYRICS) return;
 
   // 配列からランダムに1つのフレーズを選択
-  const data =
-    extractedLyrics[
-      Math.floor(Math.random() * extractedLyrics.length)
-    ];
+  const data = extractedLyrics[Math.floor(Math.random() * extractedLyrics.length)];
 
   // リンク付きの要素（<a>タグ）を作成
   const a = document.createElement('a');
-
-  a.className = 'floating-lyric';
+  a.className = 'floating-lyric typing'; // 初期はタイピング中クラスを付与
   a.href = data.url;
 
-  // ------------------------------------------
-  // ランダムな位置
-  // ------------------------------------------
+  // 1. ランダムな位置・角度・フォントサイズを設定
+  const topPos = Math.floor(Math.random() * 55) + 20; // 20%〜75%の範囲
+  const leftPos = Math.floor(Math.random() * 55) + 20;
+  const rotateDeg = (Math.random() * 6 - 3).toFixed(1); // -3度〜3度の傾き
+  
+  // ★追加：フォントサイズを 0.75rem 〜 1.15rem の間でランダム指定
+  const fontSizeVal = (Math.random() * 0.4 + 0.75).toFixed(2);
 
-  const topPos =
-    Math.floor(Math.random() * 55) + 20; // 20〜75%
-
-  const leftPos =
-    Math.floor(Math.random() * 55) + 20; // 20〜75%
-
-  // ------------------------------------------
-  // ランダムな透明度
-  // ------------------------------------------
-
-  const opacityVal =
-    (Math.random() * 0.15 + 0.08).toFixed(2);
-
-  // ------------------------------------------
-  // ランダムな傾き
-  // ------------------------------------------
-
-  const rotateDeg =
-    (Math.random() * 6 - 3).toFixed(1);
+  // ★追加：タイプ完了後の目標透過度（0.10 〜 0.25）
+  const targetOpacity = (Math.random() * 0.15 + 0.10).toFixed(2);
 
   a.style.top = `${topPos}%`;
   a.style.left = `${leftPos}%`;
-
-  a.style.transform =
-    `rotate(${rotateDeg}deg)`;
+  a.style.transform = `rotate(${rotateDeg}deg)`;
+  a.style.fontSize = `${fontSizeVal}rem`;
 
   document.body.appendChild(a);
 
-  // タイプライター演出
-  typeWriterEffect(
-    a,
-    data.text,
-    opacityVal
-  );
+  // タイプライター演出を実行
+  typeWriterEffect(a, data.text, targetOpacity);
 }
-
-
 // ==========================================
 // 5. タイプライター表示
 // ==========================================
-function typeWriterEffect(
-  element,
-  text,
-  targetOpacity
-) {
-
+function typeWriterEffect(element, text, targetOpacity) {
   let index = 0;
 
-  element.style.opacity = targetOpacity;
-
+  // 3. タイプ速度をゆっくりに設定（旧: 70ms → 新: 140ms で約半分の遅さに）
   const timer = setInterval(() => {
-
-    element.textContent +=
-      text.charAt(index);
-
+    element.textContent += text.charAt(index);
     index++;
-
+    
     if (index >= text.length) {
       clearInterval(timer);
+      
+      // ★追加：タイピング完了時の処理
+      // クラスを外してピンクから薄い透過状態（CSS側で制御）へ変化させる
+      element.classList.remove('typing');
+      element.style.opacity = targetOpacity;
     }
-
-  }, 70);
+  }, 140); // ★ミリ秒数を大きくするとより遅くなります
 }
-
 
 // ==========================================
 // 6. マスコットキャラ登場時などに呼ぶ
