@@ -81,6 +81,7 @@ if (menuIcon && closeBtn && menu) {
   }, { passive: true });
 })();
 
+/*
 
 // ===============================
 // NAP TIME CONTROL (時間判定 & 時計)
@@ -206,3 +207,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     observer.observe(body, { attributes: true });
 });
+*/
