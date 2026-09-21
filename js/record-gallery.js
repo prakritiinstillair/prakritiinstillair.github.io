@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
       id: '14',
       image: 'images/yorunomannakade.jpg',
       url: 'tracks/yorunomannakade.html'
-    },
+    }
     // 必要な分だけ { id: '...', image: '...', url: '...' }, を追加していきます
   ];
 
