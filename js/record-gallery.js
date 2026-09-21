@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
       id: '04',
       image: 'images/friendsitalian.jpg',
       url: 'tracks/friendsitalian.html'
-    }
+    },
        {
       id: '05',
       image: 'images/lightscameraaction.jpg',
@@ -43,7 +43,37 @@ document.addEventListener('DOMContentLoaded', () => {
       id: '08',
       image: 'images/tomatonokandume.jpg',
       url: 'tracks/tomatonokandume.html'
-    }
+    },
+     {
+      id: '09',
+      image: 'images/offlineonline.jpg',
+      url: 'tracks/offlineonline.html'
+    },
+    {
+      id: '10',
+      image: 'images/nontitle.jpg',
+      url: 'tracks/nontitle.html'
+    },
+    {
+      id: '11',
+      image: 'images/coinlocker.jpg', 
+      url: 'tracks/coinlocker.html'
+    },
+    {
+      id: '12',
+      image: 'images/turaturatubaki.jpg',
+      url: 'tracks/turaturatubaki.html'
+    },
+       {
+      id: '13',
+      image: 'images/tajigenspectrum.jpg', 
+      url: 'tracks/tajigenspectrum.html'
+    },
+    {
+      id: '14',
+      image: 'images/yorunomannakade.jpg',
+      url: 'tracks/yorunomannakade.html'
+    },
     // 必要な分だけ { id: '...', image: '...', url: '...' }, を追加していきます
   ];
 
