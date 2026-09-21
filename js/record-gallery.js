@@ -1,17 +1,31 @@
 /* ==========================================
    Record Crate Gallery JavaScript
    ========================================== */
-
 document.addEventListener('DOMContentLoaded', () => {
-  // 表示したいデータ（画像パスとリンク先を設定してください）
-  const rawAlbums = Array.from({ length: 20 }, (_, i) => {
-    const num = String(i + 1).padStart(2, '0');
-    return {
-      id: num,
-      image: `images/jacket_${num}.jpg`, // ジャケット画像のパス
-      url: `#track${num}`
-    };
-  });
+  // 1枚ずつ個別に画像パスとリンク先を指定するデータリスト
+  const rawAlbums = [
+    {
+      id: '01',
+      image: 'images/fireflower.jpg',
+      url: 'tracks/fireflower.html'
+    },
+    {
+      id: '02',
+      image: 'images/senjoukousuitai.jpg',
+      url: 'tracks/senjoukousuitai.html'
+    },
+    {
+      id: '03',
+      image: 'images/aromajewel.jpg', 
+      url: 'tracks/aromajewel.html'
+    },
+    {
+      id: '04',
+      image: 'images/friendsitalian.jpg',
+      url: 'tracks/friendsitalian.html'
+    }
+    // 必要な分だけ { id: '...', image: '...', url: '...' }, を追加していきます
+  ];
 
   // シャッフル関数
   function shuffle(array) {
