@@ -3,14 +3,12 @@
    ========================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 表示したいデータ（ここを自分のコンテンツに書き換えてください）
+  // 表示したいデータ（画像パスとリンク先を設定してください）
   const rawAlbums = Array.from({ length: 20 }, (_, i) => {
     const num = String(i + 1).padStart(2, '0');
-    const hue = (i * 137.5) % 360; 
     return {
       id: num,
-      title: `TRACK_${num}`,
-      color: `hsl(${hue}, 30%, 20%)`,
+      image: `images/jacket_${num}.jpg`, // ジャケット画像のパス
       url: `#track${num}`
     };
   });
@@ -28,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const albums = shuffle(rawAlbums);
   const crate = document.getElementById('crate');
   
-  // HTML内にクレートが存在しない場合は処理を中断（エラー防止）
   if (!crate) return;
 
   let cards = [];
@@ -44,19 +41,16 @@ document.addEventListener('DOMContentLoaded', () => {
     albums.forEach((album, index) => {
       const card = document.createElement('div');
       card.classList.add('record-card');
-      card.style.backgroundColor = album.color;
 
       const rotZ = (Math.random() - 0.5) * 2.5;
       const rotY = (Math.random() - 0.5) * 2.0;
       const posX = (Math.random() - 0.5) * 4.0;
       cardOffsets.push({ rotZ, rotY, posX });
 
+      // トラック名・No.を削除し、ジャケット画像と右下の▶ CHECKボタンのみを配置
       card.innerHTML = `
-        <div class="card-header">
-          <span class="card-title">${album.title}</span>
-          <span class="card-num">#${album.id}</span>
-        </div>
-        <a href="${album.url}" class="card-link" onclick="event.stopPropagation()">PLAY TRACK</a>
+        <img src="${album.image}" alt="" class="card-cover-img" />
+        <a href="${album.url}" class="card-link" onclick="event.stopPropagation()">▶ CHECK</a>
       `;
 
       card.addEventListener('pointerdown', (e) => onPointerDown(e, index));
