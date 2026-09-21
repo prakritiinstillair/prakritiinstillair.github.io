@@ -24,6 +24,26 @@ document.addEventListener('DOMContentLoaded', () => {
       image: 'images/friendsitalian.jpg',
       url: 'tracks/friendsitalian.html'
     }
+       {
+      id: '05',
+      image: 'images/lightscameraaction.jpg',
+      url: 'tracks/lightscameraaction.html'
+    },
+    {
+      id: '06',
+      image: 'images/rojoukansoku.jpg',
+      url: 'tracks/rojoukansoku.html'
+    },
+    {
+      id: '07',
+      image: 'images/goodgame.jpg', 
+      url: 'tracks/goodgame.html'
+    },
+    {
+      id: '08',
+      image: 'images/tomatonokandume.jpg',
+      url: 'tracks/tomatonokandume.html'
+    }
     // 必要な分だけ { id: '...', image: '...', url: '...' }, を追加していきます
   ];
 
