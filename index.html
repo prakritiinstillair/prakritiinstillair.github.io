@@ -30,6 +30,7 @@
 <meta name="twitter:description" content="Commonplace music, lyrics, notes and experimental indie sounds by prakriti in still air.">
 <meta name="twitter:image" content="https://prakritiinstillair.github.io/images/ogp.jpg">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/record-gallery.css">
     <script type="application/ld+json">
     {
      "@context":"https://schema.org",
@@ -256,8 +257,29 @@
         <img src="images/lp-records.jpg" alt="lefty panda records logo">
       </div>
     </section>
+ <!-- =================================================== -->
+  <!-- レコードギャラリー埋め込みエリア -->
+  <!-- =================================================== -->
+  <section class="record-gallery-container">
+    <div class="instruction">
+      下フリック：次のレコードへ<br>
+      上フリック：前のレコードへ<br>
+      タップ：持ち上げる / 戻す
+    </div>
+
+    <div class="crate-wrapper">
+      <div class="crate" id="crate">
+        <div class="crate-bottom"></div>
+        <div class="crate-front" id="crateFront">
+          <span class="crate-label">DIG CRATE</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
 
     <script src="js/script.js"></script>
     <script src="js/lyrics.js"></script>
+    <script src="js/record-gallery.js"></script>
 </body>
 </html>
