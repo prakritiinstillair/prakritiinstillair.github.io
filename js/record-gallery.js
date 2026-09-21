@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       id: '11',
-      image: 'images/coinlocker.jpg', 
+      image: 'images/coin-locker.jpg', 
       url: 'tracks/coinlocker.html'
     },
     {
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
        {
       id: '13',
-      image: 'images/tajigenspectrum.jpg', 
+      image: 'images/tajigen-spectrum.jpg', 
       url: 'tracks/tajigenspectrum.html'
     },
     {
