@@ -8,6 +8,14 @@ const trackUrls = [
   "tracks/friendsitalian.html",
   "tracks/lightscameraaction.html",
   "tracks/rojoukansoku.html"
+  "tracks/goodgame.html",
+  "tracks/tomatonokandume.html",
+  "tracks/offlineonline.html",
+  "tracks/nontitle.html",
+  "tracks/coinlocker.html",
+  "tracks/turaturatubaki.html",
+  "tracks/tajigenspectrum.html",
+  "tracks/yorunomannakade.html"
   // 新曲（アルバム等）を追加した場合はここにパスを追記するだけでOK
 ];
 
