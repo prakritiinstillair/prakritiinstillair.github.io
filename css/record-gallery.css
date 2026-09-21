@@ -16,7 +16,7 @@
   align-items: center;
   justify-content: center;
   padding: 40px 10px;
-  background-color: var(--crate-bg-color);
+  background-color: #000;
   color: #fff;
   font-family: monospace, sans-serif;
   box-sizing: border-box;
