@@ -7,7 +7,7 @@ const trackUrls = [
   "tracks/senjoukousuitai.html",
   "tracks/friendsitalian.html",
   "tracks/lightscameraaction.html",
-  "tracks/rojoukansoku.html"
+  "tracks/rojoukansoku.html",
   "tracks/goodgame.html",
   "tracks/tomatonokandume.html",
   "tracks/offlineonline.html",
