@@ -24,43 +24,78 @@ if (menuIcon && closeBtn && menu) {
     link.addEventListener("click", closeMenu);
   });
 }
-
-// スクロール時の微細グリッチ演出
+// ==========================================================================
+// SCROLL RANDOM GLITCH & MASCOT CONTROLLER
+// ==========================================================================
 (function() {
   let scrollTimeout;
+  let glitchInterval = null;
   const body = document.body;
-
-  window.addEventListener('scroll', () => {
-    // スクロールが始まったらクラスを付与
-    body.classList.add('scrolling');
-
-    // スクロールが動いている間はタイマーを常にリセット
-    clearTimeout(scrollTimeout);
-
-    // スクロールが止まって150ms後にクラスを削除（静止状態に戻る）
-    scrollTimeout = setTimeout(() => {
-      body.classList.remove('scrolling');
-    }, 150);
-  }, { passive: true });
-})();
-// ===============================
-// MASCOT CONTROL
-// ===============================
-(function() {
+  const root = document.documentElement;
   const mascot = document.getElementById('scroll-mascot');
-  
-  // HTML側にマスコットの要素がない場合のコードエラーを防ぐ安全弁
-  if (!mascot) return; 
+  let lyricClearTimeout = null;
 
-  let mascotTimeout;
-  let lyricClearTimeout = null; // 歌詞消去用のタイマー
+  // 乱数生成ヘルパー
+  const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
+  // スクロール中にランダムなCSS変数を高速注入する関数
+  function triggerRandomGlitch() {
+    // 帯1のカット位置と横滑り量
+    const top1 = rand(5, 70);
+    const height1 = rand(8, 25);
+    const btm1 = 100 - (top1 + height1);
+    const shiftX1 = rand(-15, 15); // vw単位で豪快に飛ばす
+    const skew1 = rand(-25, 25);
+
+    // 帯2のカット位置と横滑り量
+    const top2 = rand(10, 80);
+    const height2 = rand(5, 30);
+    const btm2 = 100 - (top2 + height2);
+    const shiftX2 = rand(-18, 18);
+    const skew2 = rand(-20, 20);
+
+    // 本体（テキスト・画像）自体の微細なガタつき
+    const bodyShiftX = rand(-6, 6);
+    const bodyShiftY = rand(-2, 2);
+    const bodySkew = (Math.random() * 2 - 1).toFixed(1);
+
+    // 色反転と色相のランダム変動
+    const hue = rand(0, 360);
+    const invert = (Math.random() * 0.4 + 0.6).toFixed(2); // 0.6 〜 1.0
+
+    // CSSカスタムプロパティを更新
+    root.style.setProperty('--clip-top-1', `${top1}%`);
+    root.style.setProperty('--clip-btm-1', `${btm1}%`);
+    root.style.setProperty('--shift-x-1', `${shiftX1}vw`);
+    root.style.setProperty('--skew-1', `${skew1}deg`);
+
+    root.style.setProperty('--clip-top-2', `${top2}%`);
+    root.style.setProperty('--clip-btm-2', `${btm2}%`);
+    root.style.setProperty('--shift-x-2', `${shiftX2}vw`);
+    root.style.setProperty('--skew-2', `${skew2}deg`);
+
+    root.style.setProperty('--body-shift-x', `${bodyShiftX}px`);
+    root.style.setProperty('--body-shift-y', `${bodyShiftY}px`);
+    root.style.setProperty('--body-skew', `${bodySkew}deg`);
+
+    root.style.setProperty('--tear-hue', `${hue}deg`);
+    root.style.setProperty('--tear-invert', invert);
+  }
+
+  // スクロールイベント
   window.addEventListener('scroll', () => {
-    // 1. スクロールが始まったら出現＆アニメ開始クラスを付与
-    if (!mascot.classList.contains('is-moving')) {
+    // --- 1. グリッチ開始 ---
+    if (!body.classList.contains('scrolling')) {
+      body.classList.add('scrolling');
+
+      // 25ms（約秒間40コマ）のスピードで切り取り位置をシャッフル
+      glitchInterval = setInterval(triggerRandomGlitch, 25);
+    }
+
+    // --- 2. マスコット制御 ---
+    if (mascot && !mascot.classList.contains('is-moving')) {
       mascot.classList.add('is-moving');
 
-      // マスコットが登場して0.4秒（400ms）経過したら歌詞を消去
       lyricClearTimeout = setTimeout(() => {
         if (typeof clearAllLyrics === 'function') {
           clearAllLyrics();
@@ -68,18 +103,30 @@ if (menuIcon && closeBtn && menu) {
       }, 400);
     }
 
-    // 2. スクロール中の間はマスコット退場タイマーをクリアし続ける
-    clearTimeout(mascotTimeout);
+    // タイマーリセット処理
+    clearTimeout(scrollTimeout);
 
-    // 3. スクロールが完全に止まって200ms後にマスコットを引っ込める
-    mascotTimeout = setTimeout(() => {
-      mascot.classList.remove('is-moving');
-      
-      // マスコットが引っ込んだら消去タイマーもリセット
+    // --- 3. 停止時のクリーンアップ ---
+    scrollTimeout = setTimeout(() => {
+      // クラス解除
+      body.classList.remove('scrolling');
+      if (mascot) mascot.classList.remove('is-moving');
+
+      // ランダムループの停止
+      clearInterval(glitchInterval);
+      glitchInterval = null;
+
+      // 変数をリセット
+      root.style.removeProperty('--body-shift-x');
+      root.style.removeProperty('--body-shift-y');
+      root.style.removeProperty('--body-skew');
+
       clearTimeout(lyricClearTimeout);
-    }, 200); 
+    }, 180);
   }, { passive: true });
 })();
+
+  
 
 /*
 
