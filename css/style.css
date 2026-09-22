@@ -10,115 +10,88 @@ body {
   overflow-x: hidden;
 }
 /* ==========================================================================
-Heavy Tear Glitch Effect (Scroll)
+Dynamic Random Tear Glitch Effect (Scroll)
 ========================================================================== */
 
-/* ベースの共通設定 */
+/* 画面全体のテキストや画像をダイナミックに引きちぎる（本体側） */
+body.home-page.scrolling #main-wrapper {
+  /* JSから流し込まれるランダム値で、本体コンテンツも一緒にゆがむ */
+  transform: translate(var(--body-shift-x, 0px), var(--body-shift-y, 0px)) skewX(var(--body-skew, 0deg));
+  filter: contrast(110%);
+}
+
+/* ベースの共通設定（マスコット z-index:9999 の手前/奥を考慮して z-index: 9990） */
 body.home-page.scrolling::before,
 body.home-page.scrolling::after {
   content: "";
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 9998;
+  inset: -20px; /* ズレた時に画面端のスキマが見えないよう少し広げる */
+  z-index: 9990; /* マスコット(9999)の「奥」で乱れる */
   pointer-events: none;
-  /* 画面全体をコピーして色を反転＋走査線を載せる */
+  
+  /* 走査線 ＋ グリッチノイズパターン */
   background: 
-    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(255, 255, 255, 0.25) 50%),
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(255, 255, 255, 0.2) 50%),
     repeating-linear-gradient(
       0deg,
       transparent,
       transparent 2px,
-      rgba(0, 255, 255, 0.1) 3px
+      rgba(0, 255, 255, 0.15) 3px
     );
   background-size: 100% 4px, 100% 100%;
-  backdrop-filter: invert(0.9) hue-rotate(90deg) contrast(150%);
+  
+  /* 反転と色変化で「断片」の異物感を出す */
+  backdrop-filter: invert(var(--tear-invert, 0.8)) hue-rotate(var(--tear-hue, 90deg)) contrast(180%);
 }
 
-/* 上側の断片（左に激しくズレる） */
+/* 上層の帯（ランダム切断） */
 body.home-page.scrolling::before {
-  animation: tear-glitch-top 0.12s infinite steps(2);
+  /* JSが生成するランダムな clip-path / transform を適用 */
+  clip-path: inset(var(--clip-top-1, 10%) 0 var(--clip-btm-1, 60%) 0);
+  transform: translate(var(--shift-x-1, -5vw), var(--shift-y-1, 0px)) skewX(var(--skew-1, -10deg));
 }
 
-/* 下側の断片（右に激しくズレる） */
+/* 下層の帯（ランダム切断） */
 body.home-page.scrolling::after {
-  animation: tear-glitch-bottom 0.1s infinite alternate steps(1);
+  clip-path: inset(var(--clip-top-2, 50%) 0 var(--clip-btm-2, 10%) 0);
+  transform: translate(var(--shift-x-2, 8vw), var(--shift-y-2, 0px)) skewX(var(--skew-2, 15deg));
 }
 
-/* 上層の切り取りアニメーション */
-@keyframes tear-glitch-top {
-  0% {
-    /* inset(top right bottom left) で画面を特定の帯だけ切取る */
-    clip-path: inset(15% 0 70% 0);
-    transform: translate(-8.5vw, 0) skewX(-15deg);
-  }
-  30% {
-    clip-path: inset(55% 0 10% 0);
-    transform: translate(12vw, 0) scaleY(1.2);
-  }
-  60% {
-    clip-path: inset(80% 0 5% 0);
-    transform: translate(-15vw, 0) skewX(20deg);
-  }
-  100% {
-    clip-path: inset(30% 0 50% 0);
-    transform: translate(5vw, 0);
-  }
-}
-
-/* 下層の切り取りアニメーション */
-@keyframes tear-glitch-bottom {
-  0% {
-    clip-path: inset(40% 0 40% 0);
-    transform: translate(10vw, 0);
-  }
-  50% {
-    clip-path: inset(75% 0 2% 0);
-    transform: translate(-12vw, 0) skewX(-30deg);
-  }
-  100% {
-    clip-path: inset(5% 0 85% 0);
-    transform: translate(7vw, 0);
-  }
-}
-
+/* --------------------------------------------------------------------------
+MASCOT CONTROL (マスコットは z-index: 9999 でノイズの手前に君臨させる)
+-------------------------------------------------------------------------- */
 #scroll-mascot {
   position: fixed;
   bottom: 20px;
-  left: -120px; /* 画像のサイズに合わせて調整（はみ出てる） */
-  z-index: 9999;
+  left: -120px;
+  z-index: 9999; /* ノイズ(9990)よりも前面に配置 */
   pointer-events: none;
-  transition: left 0.4s ease-in-out;
+  transition: left 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* 画像2枚をぴったり重ねる */
 #scroll-mascot img {
-  width: 160px; /* 表示サイズ */
+  width: 160px;
   height: auto;
 }
+
 #scroll-mascot .img-playing {
   position: absolute;
   top: 0;
   left: 0;
-  opacity: 0; /* 普段は2枚目を透明にしておく */
+  opacity: 0;
 }
 
-/* 【重要】スクロール中の処理 */
 #scroll-mascot.is-moving {
-  left: -30px; /* 画面に出てくる量を調整 */
+  left: -30px;
 }
 
-/* スクロール中だけ、2コマを交互に表示するアニメーションを起動 */
 #scroll-mascot.is-moving .img-normal {
-  animation: strokeAnime 0.3s steps(1) infinite;
+  animation: strokeAnime 0.25s steps(1) infinite;
 }
 #scroll-mascot.is-moving .img-playing {
-  animation: strokeAnime2 0.3s steps(1) infinite;
+  animation: strokeAnime2 0.25s steps(1) infinite;
 }
 
-/* 2コマアニメ用のパラパラ設定 */
 @keyframes strokeAnime {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
