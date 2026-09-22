@@ -10,10 +10,85 @@ body {
   overflow-x: hidden;
 }
 /* ==========================================================================
-   Scroll Glitch Effect
-   ========================================================================== */
+Heavy Tear Glitch Effect (Scroll)
+========================================================================== */
 
-/* ノイズを重ねるためのベース（画面全体を覆うレイヤー） */
+/* ベースの共通設定 */
+body.home-page.scrolling::before,
+body.home-page.scrolling::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+  /* 画面全体をコピーして色を反転＋走査線を載せる */
+  background: 
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(255, 255, 255, 0.25) 50%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 255, 255, 0.1) 3px
+    );
+  background-size: 100% 4px, 100% 100%;
+  backdrop-filter: invert(0.9) hue-rotate(90deg) contrast(150%);
+}
+
+/* 上側の断片（左に激しくズレる） */
+body.home-page.scrolling::before {
+  animation: tear-glitch-top 0.12s infinite steps(2);
+}
+
+/* 下側の断片（右に激しくズレる） */
+body.home-page.scrolling::after {
+  animation: tear-glitch-bottom 0.1s infinite alternate steps(1);
+}
+
+/* 上層の切り取りアニメーション */
+@keyframes tear-glitch-top {
+  0% {
+    /* inset(top right bottom left) で画面を特定の帯だけ切取る */
+    clip-path: inset(15% 0 70% 0);
+    transform: translate(-8.5vw, 0) skewX(-15deg);
+  }
+  30% {
+    clip-path: inset(55% 0 10% 0);
+    transform: translate(12vw, 0) scaleY(1.2);
+  }
+  60% {
+    clip-path: inset(80% 0 5% 0);
+    transform: translate(-15vw, 0) skewX(20deg);
+  }
+  100% {
+    clip-path: inset(30% 0 50% 0);
+    transform: translate(5vw, 0);
+  }
+}
+
+/* 下層の切り取りアニメーション */
+@keyframes tear-glitch-bottom {
+  0% {
+    clip-path: inset(40% 0 40% 0);
+    transform: translate(10vw, 0);
+  }
+  50% {
+    clip-path: inset(75% 0 2% 0);
+    transform: translate(-12vw, 0) skewX(-30deg);
+  }
+  100% {
+    clip-path: inset(5% 0 85% 0);
+    transform: translate(7vw, 0);
+  }
+}
+
+/* ==========================================================================
+   Scroll Glitch Effect
+   ========================================================================== 
+
+/* ノイズを重ねるためのベース（画面全体を覆うレイヤー） 
 body::after {
   content: "";
   position: fixed;
@@ -22,11 +97,8 @@ body::after {
   right: -50px;
   bottom: -50px;
   background: 
-    /* 「薄い白」の点 */
     radial-gradient(circle at 50% 50%, rgba(255, 100, 180, 0.08) 0%, transparent 100%),
-    /* 走査線（青） */
     linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(255, 255, 255, 0.09) 50%),
-     /* 波紋： */
 repeating-radial-gradient(
   circle at 120px calc(100% - 100px),
   rgba(100,230,255,0.12) 0,
@@ -34,7 +106,7 @@ repeating-radial-gradient(
   transparent 1px,
   transparent 20px
 );
-  /* 粒のサイズを少し小さく(4px)して、密度を高める（ザラザラ感アップ） */
+  /* 粒のサイズを少し小さく(4px)して、密度を高める（ザラザラ感アップ） 
   background-size: 4px 4px, 100% 8px,100% 100%; 
 
   z-index: 9999;
@@ -43,13 +115,13 @@ repeating-radial-gradient(
   transition: opacity 0.2s ease;
 }
 
-/* スクロール中だけ適用されるスタイル */
+/* スクロール中だけ適用されるスタイル 
 body.home-page.scrolling::after {
   opacity: 1;
   animation: mini-glitch 0.15s infinite alternate;
 }
 
-/* 微細なブレを生み出すアニメーション */
+/* 微細なブレを生み出すアニメーション 
 @keyframes mini-glitch {
   0% { transform: translate(0, 0); filter: blur(0px); }
   20% { transform: translate(-1px, 0.5px); }
@@ -59,7 +131,7 @@ body.home-page.scrolling::after {
   80% { transform: translate(1px, 0.5px); }
   100% { transform: translate(0, 0); }
 }
-
+*/
 #scroll-mascot {
   position: fixed;
   bottom: 20px;
