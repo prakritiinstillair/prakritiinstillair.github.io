@@ -40,7 +40,22 @@ body.home-page.scrolling::after {
     contrast(120%) 
     saturate(120%) 
     hue-rotate(var(--tear-hue, 0deg));
+
+  will-change: transform, clip-path; /* パフォーマンス向上用 */
 }
+
+/* 帯1（ランダム切断 & スライド） */
+body.home-page.scrolling::before {
+  clip-path: inset(var(--clip-top-1, 10%) 0 var(--clip-btm-1, 60%) 0);
+  transform: translate(var(--shift-x-1, -2vw), 0px) skewX(var(--skew-1, -10deg));
+}
+
+/* 帯2（ランダム切断 & スライド） */
+body.home-page.scrolling::after {
+  clip-path: inset(var(--clip-top-2, 50%) 0 var(--clip-btm-2, 10%) 0);
+  transform: translate(var(--shift-x-2, 2vw), 0px) skewX(var(--skew-2, 15deg));
+}
+
 /* --------------------------------------------------------------------------
 MASCOT CONTROL (z-index: 9999 で一番手前に表示)
 -------------------------------------------------------------------------- */
