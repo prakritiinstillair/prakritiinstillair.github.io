@@ -32,7 +32,7 @@ body.home-page.scrolling::after {
       0deg,
       transparent 0px,
       transparent 3px,
-      rgba(255, 255, 255, var(--tear-opacity, 0.06)) 4px,
+      rgba(0, 0, 0, var(--tear-opacity, 0.06)) 4px,
       transparent 5px
     );
 
