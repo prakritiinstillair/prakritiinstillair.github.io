@@ -13,23 +13,21 @@ body {
 Dynamic Random Tear Glitch Effect (Scroll)
 ========================================================================== */
 
-/* 画面全体のテキストや画像をダイナミックに引きちぎる（本体側） */
-body.home-page.scrolling #main-wrapper {
-  /* JSから流し込まれるランダム値で、本体コンテンツも一緒にゆがむ */
+/* メインコンテンツ本体（テキストやアルバム画像）自体もスクロール中に歪ませる */
+body.home-page.scrolling #main-content {
   transform: translate(var(--body-shift-x, 0px), var(--body-shift-y, 0px)) skewX(var(--body-skew, 0deg));
   filter: contrast(110%);
+  will-change: transform;
 }
 
-/* ベースの共通設定（マスコット z-index:9999 の手前/奥を考慮して z-index: 9990） */
+/* 画面の上に被せる帯状の切断ノイズ */
 body.home-page.scrolling::before,
 body.home-page.scrolling::after {
   content: "";
   position: fixed;
-  inset: -20px; /* ズレた時に画面端のスキマが見えないよう少し広げる */
-  z-index: 9990; /* マスコット(9999)の「奥」で乱れる */
+  inset: -20px;
+  z-index: 9990; /* マスコット(9999)の奥で発生 */
   pointer-events: none;
-  
-  /* 走査線 ＋ グリッチノイズパターン */
   background: 
     linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(255, 255, 255, 0.2) 50%),
     repeating-linear-gradient(
@@ -39,32 +37,29 @@ body.home-page.scrolling::after {
       rgba(0, 255, 255, 0.15) 3px
     );
   background-size: 100% 4px, 100% 100%;
-  
-  /* 反転と色変化で「断片」の異物感を出す */
   backdrop-filter: invert(var(--tear-invert, 0.8)) hue-rotate(var(--tear-hue, 90deg)) contrast(180%);
 }
 
-/* 上層の帯（ランダム切断） */
+/* 帯1（ランダム切断） */
 body.home-page.scrolling::before {
-  /* JSが生成するランダムな clip-path / transform を適用 */
   clip-path: inset(var(--clip-top-1, 10%) 0 var(--clip-btm-1, 60%) 0);
   transform: translate(var(--shift-x-1, -5vw), var(--shift-y-1, 0px)) skewX(var(--skew-1, -10deg));
 }
 
-/* 下層の帯（ランダム切断） */
+/* 帯2（ランダム切断） */
 body.home-page.scrolling::after {
   clip-path: inset(var(--clip-top-2, 50%) 0 var(--clip-btm-2, 10%) 0);
   transform: translate(var(--shift-x-2, 8vw), var(--shift-y-2, 0px)) skewX(var(--skew-2, 15deg));
 }
 
 /* --------------------------------------------------------------------------
-MASCOT CONTROL (マスコットは z-index: 9999 でノイズの手前に君臨させる)
+MASCOT CONTROL (z-index: 9999 で一番手前に表示)
 -------------------------------------------------------------------------- */
 #scroll-mascot {
   position: fixed;
   bottom: 20px;
   left: -120px;
-  z-index: 9999; /* ノイズ(9990)よりも前面に配置 */
+  z-index: 9999; /* グリッチノイズ(9990)よりも手前 */
   pointer-events: none;
   transition: left 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -100,7 +95,6 @@ MASCOT CONTROL (マスコットは z-index: 9999 でノイズの手前に君臨�
   0%, 100% { opacity: 0; }
   50% { opacity: 1; }
 }
-
 
 /* ================= HEADER / MENU ================= */
 header {
