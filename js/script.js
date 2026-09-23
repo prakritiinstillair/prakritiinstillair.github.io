@@ -44,18 +44,18 @@ if (menuIcon && closeBtn && menu) {
     const top1 = rand(5, 70);
     const height1 = rand(8, 25);
     const btm1 = 100 - (top1 + height1);
-    const shiftX1 = rand(-3, 3); // vw（画面幅％）単位で横にぶっ飛ばす
+    const shiftX1 = rand(-2, 2); // vw（画面幅％）単位で横にぶっ飛ばす
     const skew1 = rand(-25, 25);
 
     // 帯2のカット位置とスライド量
     const top2 = rand(10, 80);
     const height2 = rand(5, 30);
     const btm2 = 100 - (top2 + height2);
-    const shiftX2 = rand(-6, 6);
+    const shiftX2 = rand(-3, 3);
     const skew2 = rand(-20, 20);
 
     // #main-content（文字・画像本体）のゆがみ
-    const bodyShiftX = rand(-2, 2);
+    const bodyShiftX = rand(-0.5, 0.5);
     const bodyShiftY = rand(-1, 1);
     const bodySkew = (Math.random() * 2 - 1).toFixed(1);
 
