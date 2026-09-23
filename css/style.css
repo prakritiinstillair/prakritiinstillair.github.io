@@ -36,7 +36,10 @@ body.home-page.scrolling::after {
       transparent 5px
     );
 
-  backdrop-filter: contrast(115%);
+  backdrop-filter: 
+    contrast(120%) 
+    saturate(120%) 
+    hue-rotate(var(--tear-hue, 0deg));
 }
 /* --------------------------------------------------------------------------
 MASCOT CONTROL (z-index: 9999 で一番手前に表示)
