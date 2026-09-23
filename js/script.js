@@ -39,31 +39,26 @@ if (menuIcon && closeBtn && menu) {
   const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
   // スクロール中にリアルタイムで数値を破滅的に変更
-  function triggerRandomGlitch() {
+    function triggerRandomGlitch() {
     // 帯1のカット位置とスライド量
     const top1 = rand(5, 70);
     const height1 = rand(8, 25);
     const btm1 = 100 - (top1 + height1);
-    const shiftX1 = rand(-2, 2); // vw（画面幅％）単位で横にぶっ飛ばす
+    const shiftX1 = rand(-3, 3); // 帯が横にズレることで、そのエリアの文字が「ズレて見える」
     const skew1 = rand(-25, 25);
 
     // 帯2のカット位置とスライド量
     const top2 = rand(10, 80);
     const height2 = rand(5, 30);
     const btm2 = 100 - (top2 + height2);
-    const shiftX2 = rand(-3, 3);
+    const shiftX2 = rand(-4, 4);
     const skew2 = rand(-20, 20);
 
-    // #main-content（文字・画像本体）のゆがみ
-    const bodyShiftX = rand(-0.5, 0.5);
-    const bodyShiftY = rand(-1, 1);
-    const bodySkew = (Math.random() * 2 - 1).toFixed(1);
-
-    // 色反転と色の回転（ノイズ層の着色）
+    // 色反転と色の回転
     const hue = rand(-60, 60);
-
-    // 帯の透明度をランダムに
     const tearOpacity = (Math.random() * 0.12 + 0.04).toFixed(2);
+
+    // ※ bodyShift 系の更新は削除
 
     // CSSプロパティを更新
     root.style.setProperty('--clip-top-1', `${top1}%`);
@@ -76,13 +71,10 @@ if (menuIcon && closeBtn && menu) {
     root.style.setProperty('--shift-x-2', `${shiftX2}vw`);
     root.style.setProperty('--skew-2', `${skew2}deg`);
 
-    root.style.setProperty('--body-shift-x', `${bodyShiftX}px`);
-    root.style.setProperty('--body-shift-y', `${bodyShiftY}px`);
-    root.style.setProperty('--body-skew', `${bodySkew}deg`);
-
     root.style.setProperty('--tear-hue', `${hue}deg`);
     root.style.setProperty('--tear-opacity', tearOpacity);
   }
+
 
   window.addEventListener('scroll', () => {
     // 1. スクロール開始時のグリッチ起動
