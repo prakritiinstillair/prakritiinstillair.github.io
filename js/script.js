@@ -44,21 +44,19 @@ if (menuIcon && closeBtn && menu) {
     const top1 = rand(5, 70);
     const height1 = rand(8, 25);
     const btm1 = 100 - (top1 + height1);
-    const shiftX1 = rand(-1, 1); // 帯が横にズレることで、そのエリアの文字が「ズレて見える」
+    const shiftX1 = rand(-2, 2); // 帯が横にズレることで、そのエリアの文字が「ズレて見える」
     const skew1 = rand(-25, 25);
 
     // 帯2のカット位置とスライド量
     const top2 = rand(10, 80);
     const height2 = rand(5, 30);
     const btm2 = 100 - (top2 + height2);
-    const shiftX2 = rand(-1, 1);
+    const shiftX2 = rand(-3, 3);
     const skew2 = rand(-20, 20);
 
     // 色反転と色の回転
-    const hue = rand(-20, 20);
+    const hue = rand(-40, 40);
     const tearOpacity = (Math.random() * 0.12 + 0.04).toFixed(2);
-
-    // ※ bodyShift 系の更新は削除
 
     // CSSプロパティを更新
     root.style.setProperty('--clip-top-1', `${top1}%`);
