@@ -45,14 +45,14 @@ if (menuIcon && closeBtn && menu) {
     const height1 = rand(8, 25);
     const btm1 = 100 - (top1 + height1);
     const shiftX1 = rand(-3, 3); // vw（画面幅％）単位で横にぶっ飛ばす
-    const skew1 = rand(-5, 5);
+    const skew1 = rand(-25, 25);
 
     // 帯2のカット位置とスライド量
     const top2 = rand(10, 80);
     const height2 = rand(5, 30);
     const btm2 = 100 - (top2 + height2);
     const shiftX2 = rand(-6, 6);
-    const skew2 = rand(-4, 4);
+    const skew2 = rand(-20, 20);
 
     // #main-content（文字・画像本体）のゆがみ
     const bodyShiftX = rand(-2, 2);
@@ -60,7 +60,7 @@ if (menuIcon && closeBtn && menu) {
     const bodySkew = (Math.random() * 2 - 1).toFixed(1);
 
     // 色反転と色の回転（ノイズ層の着色）
-    const hue = rand(-30, 30);
+    const hue = rand(-60, 60);
 
     // 帯の透明度をランダムに
     const tearOpacity = (Math.random() * 0.12 + 0.04).toFixed(2);
