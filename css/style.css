@@ -207,6 +207,7 @@ opacity:1;
   background-position: center;
   position: relative;
   overflow: hidden;
+  isolation: isolate;
 }
 
 #hero .overlay {
