@@ -407,8 +407,16 @@ opacity:1;
 /* マスコット登場時のフェードアウト */
 .lyric-fade-out {
   opacity: 0 !important;
-  transition: opacity 0.8s ease;
+  transform: translateX(12px);
+  filter: blur(0.8px) contrast(180%);
+  letter-spacing: 0.08em;
+  transition:
+    opacity 0.45s steps(4),
+    transform 0.45s steps(4),
+    filter 0.45s ease,
+    letter-spacing 0.45s ease;
 }
+
 
 /* ==========================================================================
    Nap Time Overlay (お昼寝オーバーレイ用のスタイル)
