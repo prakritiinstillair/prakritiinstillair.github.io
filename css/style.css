@@ -19,44 +19,33 @@ body.home-page.scrolling #main-content {
   filter: contrast(110%);
   will-change: transform;
 }
-
 /* 画面の上に被せる帯状の切断ノイズ */
 body.home-page.scrolling::before,
 body.home-page.scrolling::after {
   content: "";
   position: fixed;
   inset: -20px;
-  z-index: 9990; /* マスコット(9999)の奥で発生 */
+  z-index: 9990;
   pointer-events: none;
-  background:
-  linear-gradient(
-    transparent 50%,
-    rgba(0, 0, 0, 0.08) 50%
-  ),
-  repeating-linear-gradient(
-    0deg,
-    transparent 0px,
-    transparent 3px,
-    rgba(0, 0, 0, var(--tear-opacity, 0.08)) 4px,
-    transparent 5px
-  );
-  background-size: 100% 4px, 100% 100%;
-  backdrop-filter:
-  contrast(140%)
-  saturate(160%)
-  hue-rotate(var(--tear-hue, 0deg));
-}
-
-/* 帯1（ランダム切断） */
-body.home-page.scrolling::before {
-  clip-path: inset(var(--clip-top-1, 10%) 0 var(--clip-btm-1, 60%) 0);
-  transform: translate(var(--shift-x-1, -5vw), var(--shift-y-1, 0px)) skewX(var(--skew-1, -10deg));
-}
-
-/* 帯2（ランダム切断） */
-body.home-page.scrolling::after {
-  clip-path: inset(var(--clip-top-2, 50%) 0 var(--clip-btm-2, 10%) 0);
-  transform: translate(var(--shift-x-2, 8vw), var(--shift-y-2, 0px)) skewX(var(--skew-2, 15deg));
+  
+  /* 赤/青などの色ズレ感を足すためのグラデーションとブレンドモード */
+  background: 
+    linear-gradient(90deg, rgba(255,0,0,0.15), rgba(0,255,255,0.15)),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 3px,
+      rgba(0, 0, 0, var(--tear-opacity, 0.08)) 4px,
+      transparent 5px
+    );
+  
+  /* 下のコンテンツ（文字）と重なったときに色ズレ・ブレ効果を生む */
+  mix-blend-mode: difference; /* または exclusion, color-dodge */
+  
+  backdrop-filter: 
+    contrast(150%) 
+    saturate(200%) 
+    hue-rotate(var(--tear-hue, 0deg));
 }
 
 /* --------------------------------------------------------------------------
