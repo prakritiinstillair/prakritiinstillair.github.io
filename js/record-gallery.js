@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const depthIndex = i - activeIndex;
         const zPos = 30 - (depthIndex * 7);
         const yPos = -15 - (depthIndex * 2.2); 
-        const rotX = -12 + (depthIndex * 0.3);
+        const rotX = -22 + (depthIndex * 0.3);
 
         card.style.zIndex = 300 - depthIndex;
         card.style.transform = `translate3d(${offset.posX}px, ${yPos}px, ${zPos}px) rotateX(${rotX}deg) rotateY(${offset.rotY}deg) rotateZ(${offset.rotZ}deg)`;
