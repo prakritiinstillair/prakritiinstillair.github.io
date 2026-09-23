@@ -135,20 +135,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const yPos = 20 + (stackIndex * 1.5); 
 
         card.style.zIndex = 500 - stackIndex;
-        card.style.transform = `translate3d(${offset.posX}px, ${yPos}px, ${zPos}px) rotateX(-15deg) rotateZ(${offset.rotZ}deg)`;
+        card.style.transform = `translate3d(${offset.posX}px, ${yPos}px, ${zPos}px) rotateX(-35deg) rotateZ(${offset.rotZ}deg)`;
         card.classList.remove('pulled-up');
 
       } else if (i === activeIndex) {
         card.style.zIndex = 400;
         if (!card.classList.contains('pulled-up')) {
-          card.style.transform = `translate3d(0, -15px, 30px) rotateX(-15deg)`;
+          card.style.transform = `translate3d(0, -15px, 30px) rotateX(-25deg)`;
         }
 
       } else {
         const depthIndex = i - activeIndex;
         const zPos = 30 - (depthIndex * 7);
         const yPos = -15 - (depthIndex * 2.2); 
-        const rotX = -16 + (depthIndex * 0.3);
+        const rotX = -22 + (depthIndex * 0.3);
 
         card.style.zIndex = 300 - depthIndex;
         card.style.transform = `translate3d(${offset.posX}px, ${yPos}px, ${zPos}px) rotateX(${rotX}deg) rotateY(${offset.rotY}deg) rotateZ(${offset.rotZ}deg)`;
