@@ -60,8 +60,10 @@ if (menuIcon && closeBtn && menu) {
     const bodySkew = (Math.random() * 2 - 1).toFixed(1);
 
     // 色反転と色の回転（ノイズ層の着色）
-    const hue = rand(0, 360);
-    const invert = (Math.random() * 0.4 + 0.6).toFixed(2);
+    const hue = rand(-30, 30);
+
+    // 帯の透明度をランダムに
+    const tearOpacity = (Math.random() * 0.12 + 0.04).toFixed(2);
 
     // CSSプロパティを更新
     root.style.setProperty('--clip-top-1', `${top1}%`);
@@ -79,7 +81,7 @@ if (menuIcon && closeBtn && menu) {
     root.style.setProperty('--body-skew', `${bodySkew}deg`);
 
     root.style.setProperty('--tear-hue', `${hue}deg`);
-    root.style.setProperty('--tear-invert', invert);
+    root.style.setProperty('--tear-opacity', tearOpacity);
   }
 
   window.addEventListener('scroll', () => {
