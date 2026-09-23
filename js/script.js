@@ -105,11 +105,6 @@ if (menuIcon && closeBtn && menu) {
       clearInterval(glitchInterval);
       glitchInterval = null;
 
-      // 歪み用プロパティのリセット
-      root.style.removeProperty('--body-shift-x');
-      root.style.removeProperty('--body-shift-y');
-      root.style.removeProperty('--body-skew');
-
       clearTimeout(lyricClearTimeout);
     }, 180);
   }, { passive: true });
