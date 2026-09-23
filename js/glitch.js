@@ -11,18 +11,29 @@ document.addEventListener('DOMContentLoaded', () => {
     svgContainer.innerHTML = `
       <svg style="display: none;">
         <defs>
-          <!-- TYPE 1: 砂嵐ノイズフィルター -->
-          <filter id="glitch-noise" x="-10%" y="-10%" width="120%" height="120%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.08 0.08" numOctaves="1" result="noise" id="turb-noise" />
-            <feComponentTransfer in="noise" result="quantized">
-              <feFuncR type="discrete" tableValues="0 0.25 0.5 0.75 1" />
-              <feFuncG type="discrete" tableValues="0 0.5 1" />
-              <feFuncB type="discrete" tableValues="0 0.33 0.66 1" />
-              <feFuncA type="linear" slope="0.4" />
-            </feComponentTransfer>
-            <feBlend in="SourceGraphic" in2="quantized" mode="overlay" result="blended" />
-            <feDisplacementMap in="blended" in2="noise" scale="12" xChannelSelector="R" yChannelSelector="G" id="disp-noise" />
-          </filter>
+        <!-- TYPE 1: 砂嵐ノイズフィルター（背景透過修正版） -->
+<filter id="glitch-noise" x="-20%" y="-20%" width="140%" height="140%">
+  <!-- 1. ノイズ生成 -->
+  <feTurbulence type="fractalNoise" baseFrequency="0.08 0.08" numOctaves="1" result="noise" id="turb-noise" />
+  
+  <!-- 2. ノイズのトーン調整 -->
+  <feComponentTransfer in="noise" result="quantized">
+    <feFuncR type="discrete" tableValues="0 0.25 0.5 0.75 1" />
+    <feFuncG type="discrete" tableValues="0 0.5 1" />
+    <feFuncB type="discrete" tableValues="0 0.33 0.66 1" />
+    <feFuncA type="linear" slope="0.4" />
+  </feComponentTransfer>
+  
+  <!-- 3. 文字画像（SourceGraphic）の上にノイズを重ねる -->
+  <feBlend in="SourceGraphic" in2="quantized" mode="overlay" result="blended" />
+  
+  <!-- 4. 変位処理 -->
+  <feDisplacementMap in="blended" in2="noise" scale="12" xChannelSelector="R" yChannelSelector="G" id="disp-noise" result="displaced" />
+
+  <!-- ★ここが重要：変位後の画像を「元画像の文字の形（SourceAlpha）」でマスクして切り抜く -->
+  <feComposite in="displaced" in2="SourceGraphic" operator="in" />
+</filter>
+
 
           <!-- TYPE 2: feTile 反復格子フィルター -->
           <filter id="glitch-tile" x="-20%" y="-20%" width="140%" height="140%">
