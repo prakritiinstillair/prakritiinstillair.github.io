@@ -31,11 +31,12 @@ body.home-page.scrolling::after {
   background: 
     linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(255, 255, 255, 0.2) 50%),
     repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0, 255, 255, 0.15) 3px
-    );
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(255,255,255,var(--tear-opacity, 0.08)) 3px,
+    transparent 4px
+  );
   background-size: 100% 4px, 100% 100%;
   backdrop-filter:
   contrast(140%)
