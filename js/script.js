@@ -35,35 +35,35 @@ if (menuIcon && closeBtn && menu) {
   const mascot = document.getElementById('scroll-mascot');
   let lyricClearTimeout = null;
 
-  // 乱数生成ヘルパー
+  // 乱数生成
   const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-  // スクロール中にランダムなCSS変数を高速注入する関数
+  // スクロール中にリアルタイムで数値を破滅的に変更
   function triggerRandomGlitch() {
-    // 帯1のカット位置と横滑り量
+    // 帯1のカット位置とスライド量
     const top1 = rand(5, 70);
     const height1 = rand(8, 25);
     const btm1 = 100 - (top1 + height1);
-    const shiftX1 = rand(-15, 15); // vw単位で豪快に飛ばす
+    const shiftX1 = rand(-15, 15); // vw（画面幅％）単位で横にぶっ飛ばす
     const skew1 = rand(-25, 25);
 
-    // 帯2のカット位置と横滑り量
+    // 帯2のカット位置とスライド量
     const top2 = rand(10, 80);
     const height2 = rand(5, 30);
     const btm2 = 100 - (top2 + height2);
     const shiftX2 = rand(-18, 18);
     const skew2 = rand(-20, 20);
 
-    // 本体（テキスト・画像）自体の微細なガタつき
+    // #main-content（文字・画像本体）のゆがみ
     const bodyShiftX = rand(-6, 6);
     const bodyShiftY = rand(-2, 2);
     const bodySkew = (Math.random() * 2 - 1).toFixed(1);
 
-    // 色反転と色相のランダム変動
+    // 色反転と色の回転（ノイズ層の着色）
     const hue = rand(0, 360);
-    const invert = (Math.random() * 0.4 + 0.6).toFixed(2); // 0.6 〜 1.0
+    const invert = (Math.random() * 0.4 + 0.6).toFixed(2);
 
-    // CSSカスタムプロパティを更新
+    // CSSプロパティを更新
     root.style.setProperty('--clip-top-1', `${top1}%`);
     root.style.setProperty('--clip-btm-1', `${btm1}%`);
     root.style.setProperty('--shift-x-1', `${shiftX1}vw`);
@@ -82,17 +82,15 @@ if (menuIcon && closeBtn && menu) {
     root.style.setProperty('--tear-invert', invert);
   }
 
-  // スクロールイベント
   window.addEventListener('scroll', () => {
-    // --- 1. グリッチ開始 ---
+    // 1. スクロール開始時のグリッチ起動
     if (!body.classList.contains('scrolling')) {
       body.classList.add('scrolling');
-
-      // 25ms（約秒間40コマ）のスピードで切り取り位置をシャッフル
+      // 25ms（約秒間40コマ）のスピードで位置と色を変調
       glitchInterval = setInterval(triggerRandomGlitch, 25);
     }
 
-    // --- 2. マスコット制御 ---
+    // 2. マスコット制御
     if (mascot && !mascot.classList.contains('is-moving')) {
       mascot.classList.add('is-moving');
 
@@ -103,20 +101,17 @@ if (menuIcon && closeBtn && menu) {
       }, 400);
     }
 
-    // タイマーリセット処理
     clearTimeout(scrollTimeout);
 
-    // --- 3. 停止時のクリーンアップ ---
+    // 3. スクロール停止時の後処理
     scrollTimeout = setTimeout(() => {
-      // クラス解除
       body.classList.remove('scrolling');
       if (mascot) mascot.classList.remove('is-moving');
 
-      // ランダムループの停止
       clearInterval(glitchInterval);
       glitchInterval = null;
 
-      // 変数をリセット
+      // 歪み用プロパティのリセット
       root.style.removeProperty('--body-shift-x');
       root.style.removeProperty('--body-shift-y');
       root.style.removeProperty('--body-skew');
@@ -126,7 +121,7 @@ if (menuIcon && closeBtn && menu) {
   }, { passive: true });
 })();
 
-  
+
 
 /*
 
