@@ -37,7 +37,10 @@ body.home-page.scrolling::after {
       rgba(0, 255, 255, 0.15) 3px
     );
   background-size: 100% 4px, 100% 100%;
-  backdrop-filter: invert(var(--tear-invert, 0.8)) hue-rotate(var(--tear-hue, 90deg)) contrast(180%);
+  backdrop-filter:
+  contrast(140%)
+  saturate(160%)
+  hue-rotate(var(--tear-hue, 0deg));
 }
 
 /* 帯1（ランダム切断） */
