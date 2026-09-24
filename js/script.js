@@ -110,8 +110,6 @@ if (menuIcon && closeBtn && menu) {
 
 
 
-/*
-
 // ===============================
 // NAP TIME CONTROL (時間判定 & 時計)
 // ===============================
@@ -236,4 +234,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     observer.observe(body, { attributes: true });
 });
-*/
+
