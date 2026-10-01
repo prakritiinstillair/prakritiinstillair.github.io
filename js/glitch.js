@@ -73,8 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let nextSwitchTime = 0;
   let currentMode = 'none';
 
-  const quietMin = 600;
-  const quietMax = 2500;
+  const quietMin = 1200;
+  const quietMax = 4800;
   const glitchMin = 80;
   const glitchMax = 320;
 
