@@ -8,6 +8,9 @@ body {
   color: #fff;
   background: #08090a;
   overflow-x: hidden;
+  /* ★ 3D演出用の遠近感（パースペクティブ）の設定を追加 */
+  perspective: 1000px;
+  perspective-origin: 50% 50%;
 }
 /* ==========================================================================
 Dynamic Random Tear Glitch Effect (Scroll)
@@ -384,9 +387,34 @@ opacity:1;
     transform: rotate(360deg);
   }
 }
-/* 放置時に画面へ生成される歌詞 */
-.floating-lyric {
+/* ==========================================
+ * 0. 3D空間の基本設定（bodyまたはコンテナに追加）
+ * ========================================== */
+body {
+  /* 画面全体に3Dの奥行き感（遠近感）を持たせる */
+  perspective: 1000px;
+  perspective-origin: 50% 50%;
+  overflow-x: hidden;
+}
+
+/* ==========================================
+ * 1. 接続線描画用 Canvas のスタイル（新規追加）
+ * ========================================== */
+#lyric-canvas {
   position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; /* マウス操作を透過させる */
+  z-index: 90; /* リリック(.floating-lyric)より一段下に配置 */
+}
+
+/* ==========================================
+ * 2. 浮遊リリックのスタイル（修正版）
+ * ========================================== */
+.floating-lyric {
+  position: absolute; /* fixed から absolute に変更して3D配置と連動 */
   z-index: 100;
   color: #e0e0e0; /* タイプ完了後の基本文字色 */
   font-family: "Yu Mincho", "游明朝", "Hiragino Mincho ProN", "MS PMincho", serif;
@@ -396,28 +424,35 @@ opacity:1;
   cursor: pointer;
   pointer-events: auto;
   user-select: none;
-  /* 透過度や色の変化を滑らかにする */
-  transition: opacity 1.2s ease, color 1.2s ease, text-shadow 1.2s ease;
+  
+  /* 3D変形や透過度・色の変化をスムーズにする設定 */
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+  transition:
+    opacity 1.2s ease,
+    color 1.2s ease,
+    text-shadow 1.2s ease,
+    transform 0.5s ease; /* JSで変更された3Dトランスフォームを滑らかに補正 */
 }
 
-/* 2. タイピング中のスタイル（ピンク色で鮮明に表示） */
+/* 2. タイピング中のスタイル（変更なし） */
 .floating-lyric.typing {
   color: #ff79c6; /* ネオン調のピンク */
   opacity: 0.95 !important;
   text-shadow: 0 0 6px rgba(255, 121, 198, 0.4); /* うっすら発光感 */
 }
 
-/* マウスを重ねた時はハッキリピンクで見せる */
+/* マウスを重ねた時のスタイル（変更なし） */
 .floating-lyric:hover {
   color: #ff79c6 !important;
   opacity: 0.95 !important;
   text-shadow: 0 0 8px rgba(255, 121, 198, 0.6);
 }
 
-/* マスコット登場時のフェードアウト */
+/* マスコット登場時のフェードアウト（変更なし） */
 .lyric-fade-out {
   opacity: 0 !important;
-  transform: translateX(12px);
+  transform: translateX(12px) !important;
   filter: blur(0.8px) contrast(180%);
   letter-spacing: 0.08em;
   transition:
