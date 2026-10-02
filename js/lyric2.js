@@ -199,7 +199,7 @@ function clearAllLyrics() {
 
 resetIdleTimer();
 // ==========================================
-// 8. 接続線描画用 Canvas & 描画ループ (画面外・端ノード対応版)
+// 8. ノード明滅 ＆ 光の玉（粒子）移動描画ループ
 // ==========================================
 const canvas = document.createElement('canvas');
 canvas.id = 'lyric-canvas';
@@ -212,25 +212,20 @@ let height = (canvas.height = window.innerHeight);
 window.addEventListener('resize', () => {
   width = canvas.width = window.innerWidth;
   height = canvas.height = window.innerHeight;
-  initAnchorNodes(); // 画面リサイズ時に画面端ポイントを再計算
+  initAnchorNodes();
 });
 
-// 画面外や端に配置する「固定/ゆらぐアンカーポイント」の配列
+// 画面外・端のアンカーポイント
 let anchorNodes = [];
 
 function initAnchorNodes() {
   anchorNodes = [
-    // 四隅（画面の少し外側）
     { x: -30, y: -30, scale: 0.8, opacity: 0.25, isAnchor: true },
     { x: width + 30, y: -30, scale: 0.8, opacity: 0.25, isAnchor: true },
     { x: -30, y: height + 30, scale: 0.8, opacity: 0.25, isAnchor: true },
     { x: width + 30, y: height + 30, scale: 0.8, opacity: 0.25, isAnchor: true },
-
-    // 画面左右の中央付近（外側）
     { x: -40, y: height * 0.5, scale: 0.9, opacity: 0.3, isAnchor: true },
     { x: width + 40, y: height * 0.5, scale: 0.9, opacity: 0.3, isAnchor: true },
-
-    // 上下の端（画面内ギリギリ）
     { x: width * 0.3, y: 15, scale: 0.7, opacity: 0.2, isAnchor: true },
     { x: width * 0.7, y: height - 15, scale: 0.7, opacity: 0.2, isAnchor: true }
   ];
@@ -243,7 +238,7 @@ function renderConnections() {
   ctx.clearRect(0, 0, width, height);
   animTime += 0.03;
 
-  // 1. 浮遊歌詞からノードを収集
+  // 1. 浮遊歌詞からノードを取得
   const elements = Array.from(document.querySelectorAll('.floating-lyric'));
   const lyricNodes = [];
 
@@ -263,8 +258,7 @@ function renderConnections() {
     });
   });
 
-  // 2. 歌詞ノードと画面端アンカーノードを結合
-  // アンカーポイントを少し揺らして生きている感じを出す
+  // 2. アンカーの揺らぎ計算
   const updatedAnchors = anchorNodes.map((a, idx) => ({
     ...a,
     x: a.x + Math.sin(animTime * 0.8 + idx) * 8,
@@ -272,16 +266,15 @@ function renderConnections() {
   }));
 
   const allNodes = [...lyricNodes, ...updatedAnchors];
-
-  // 端へ引っ張るため、最大接続距離を少し広め(380px)に設定
   const maxDistance = 380;
 
+  // 3. ノード間の光の玉（移動粒子）を描画
   for (let i = 0; i < allNodes.length; i++) {
     for (let j = i + 1; j < allNodes.length; j++) {
       const n1 = allNodes[i];
       const n2 = allNodes[j];
 
-      // アンカー同士（画面外×画面外）は線を引かない（歌詞との間、または歌詞同士のみ）
+      // アンカー同士の間には走らせない
       if (n1.isAnchor && n2.isAnchor) continue;
 
       const dx = n2.x - n1.x;
@@ -290,47 +283,72 @@ function renderConnections() {
 
       if (dist < maxDistance) {
         const alpha = (1 - dist / maxDistance) * Math.min(n1.opacity, n2.opacity) * 1.2;
-        
+
+        // 湾曲させた軌跡上のコントロールポイント
         const midX = (n1.x + n2.x) / 2;
         const midY = (n1.y + n2.y) / 2;
         const curveOffset = Math.sin(animTime + dist * 0.01) * 25;
         const controlX = midX + (dy / dist) * curveOffset;
         const controlY = midY - (dx / dist) * curveOffset;
 
-        // 曲線描画
-        ctx.beginPath();
-        ctx.moveTo(n1.x, n1.y);
-        ctx.quadraticCurveTo(controlX, controlY, n2.x, n2.y);
+        // 往復移動する位置 (t = 0〜1)
+        const t = (Math.sin(animTime * 1.5 + i * 2 + j) + 1) / 2;
 
-        const grad = ctx.createLinearGradient(n1.x, n1.y, n2.x, n2.y);
-        grad.addColorStop(0, `rgba(255, 182, 193, ${alpha})`);
-        grad.addColorStop(1, `rgba(173, 216, 230, ${alpha})`);
-
-        ctx.strokeStyle = grad;
-        ctx.lineWidth = 1.6 * Math.min(n1.scale, n2.scale);
-        ctx.setLineDash([4, 4]);
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        // 移動バブル
-        const t = (Math.sin(animTime * 1.5 + i + j) + 1) / 2;
+        // ベジェ曲線上の現在座標を算出
         const bubbleX = (1 - t) * (1 - t) * n1.x + 2 * (1 - t) * t * controlX + t * t * n2.x;
         const bubbleY = (1 - t) * (1 - t) * n1.y + 2 * (1 - t) * t * controlY + t * t * n2.y;
 
+        // 行き来する光の玉を描画（※線は描画しない）
         ctx.beginPath();
-        ctx.arc(bubbleX, bubbleY, 3 * n1.scale, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.8})`;
+        const ballRadius = (3.5 + Math.sin(animTime * 2 + i) * 1) * Math.min(n1.scale, n2.scale);
+        ctx.arc(bubbleX, bubbleY, ballRadius, 0, Math.PI * 2);
+        
+        // ほんのり発光するグラデーション
+        const ballGrad = ctx.createRadialGradient(
+          bubbleX, bubbleY, 0,
+          bubbleX, bubbleY, ballRadius * 2
+        );
+        ballGrad.addColorStop(0, `rgba(255, 255, 255, ${alpha})`);
+        ballGrad.addColorStop(0.5, `rgba(173, 216, 230, ${alpha * 0.8})`);
+        ballGrad.addColorStop(1, `rgba(173, 216, 230, 0)`);
+
+        ctx.fillStyle = ballGrad;
         ctx.fill();
       }
     }
+  }
 
-    // ノード（円）描画（歌詞または画面内のアンカーのみ）
-    if (allNodes[i].x >= -10 && allNodes[i].x <= width + 10 &&
-        allNodes[i].y >= -10 && allNodes[i].y <= height + 10) {
+  // 4. 各ノード（各歌詞・アンカー位置）の明滅バブルを描画
+  for (let i = 0; i < allNodes.length; i++) {
+    const node = allNodes[i];
+
+    // 画面内に収まる範囲のみ描画
+    if (node.x >= -20 && node.x <= width + 20 &&
+        node.y >= -20 && node.y <= height + 20) {
+
+      // パルス（脈動・明滅）のサイズと透明度計算
+      const pulseProgress = Math.sin(animTime * 2.5 + i * 1.5);
+      const pulseRadius = (5 + pulseProgress * 2.5) * node.scale;
+      const glowRadius = pulseRadius * 2.5;
+
+      // 外側のボカシ光（グロー効果）
+      const glowGrad = ctx.createRadialGradient(
+        node.x, node.y, pulseRadius * 0.3,
+        node.x, node.y, glowRadius
+      );
+      glowGrad.addColorStop(0, `rgba(255, 192, 203, ${node.opacity * 0.9})`);
+      glowGrad.addColorStop(0.5, `rgba(255, 182, 193, ${node.opacity * 0.4})`);
+      glowGrad.addColorStop(1, `rgba(255, 182, 193, 0)`);
+
       ctx.beginPath();
-      const pulseRadius = (4 + Math.sin(animTime * 3 + i) * 1.5) * allNodes[i].scale;
-      ctx.arc(allNodes[i].x, allNodes[i].y, pulseRadius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255, 192, 203, ${allNodes[i].opacity * 0.8})`;
+      ctx.arc(node.x, node.y, glowRadius, 0, Math.PI * 2);
+      ctx.fillStyle = glowGrad;
+      ctx.fill();
+
+      // 中心の小さな芯（くっきりした光）
+      ctx.beginPath();
+      ctx.arc(node.x, node.y, Math.max(1.5, pulseRadius * 0.4), 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 255, 255, ${node.opacity * 0.95})`;
       ctx.fill();
     }
   }
