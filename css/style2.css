@@ -8,8 +8,17 @@ body {
   color: #fff;
   background: #08090a;
   overflow-x: hidden;
-  /* 3D演出用の遠近感（パースペクティブ）の設定 */
-  perspective: 1000px;
+}
+/* 浮遊歌詞を入れる3Dステージ用コンテナ */
+#lyric-stage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; /* 下の要素のクリックを邪魔しない */
+  z-index: 100;        /* キャンバス(90)より上、マスコット(9999)より下 */
+  perspective: 1000px; /* 3D効果はここだけに適用 */
   perspective-origin: 50% 50%;
 }
 
