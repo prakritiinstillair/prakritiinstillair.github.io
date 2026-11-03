@@ -2,6 +2,17 @@
 // 1. トラックページの相対パス一覧
 // ==========================================
 const trackUrls = [
+  "tracks/reitenzero.html",
+  "tracks/huyunodangan.html",
+  "tracks/cage.html",
+  "tracks/daihinmin.html",
+  "tracks/mugenlife.html",
+  "tracks/onitenkan.html",
+  "tracks/yurarete.html",
+  "tracks/ginnouradi.html",
+  "tracks/sashimisasu.html",
+  "tracks/habatakutoki.html",
+  "tracks/dragononthepalm.html",
   "tracks/fireflower.html",
   "tracks/aromajewel.html",
   "tracks/senjoukousuitai.html",
